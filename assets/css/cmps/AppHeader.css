@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     padding: 1em;
-    background: var(--bg1);
+    /* background: var(--bg1); */
 }
 
 nav a {

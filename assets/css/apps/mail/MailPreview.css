@@ -1,0 +1,11 @@
+.mail-preview {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+}
+
+
+.mail-preview>*:not(:first-child) {
+    flex: 1;
+}

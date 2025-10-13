@@ -16,14 +16,19 @@ export const mailService = {
     getFilterFromSearchParams
 }
 
+const loggedinUser = {
+    email: 'user@appsus.com',
+    fullname: 'Mahatma Appsus'
+}
+
 function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
-                mails = mails.filter(car => regExp.test(car.vendor))
+                mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body))
             }
-            if (filterBy.minSpeed) {
+            if (filterBy.body) {
                 mails = mails.filter(car => car.speed >= filterBy.minSpeed)
             }
             // console.log(' mails:', mails)
@@ -286,6 +291,7 @@ function _createMails() {
     }
 }
 
+
 function _createMail(vendor, speed = 250) {
     const mail = getEmptyMail(vendor, speed)
     mail.id = makeId()
@@ -296,10 +302,10 @@ function _createMail(vendor, speed = 250) {
 
 function getFilterFromSearchParams(searchParams) {
     const txt = searchParams.get('txt') || ''
-    const minSpeed = searchParams.get('minSpeed') || ''
+    const body = searchParams.get('body') || ''
     return {
         txt,
-        minSpeed
+        body
     }
 }
 

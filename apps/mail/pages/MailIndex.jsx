@@ -2,6 +2,7 @@ import { mailService } from "../services/mail.service.js"
 import { utilService } from "../../../services/util.service.js"
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { MailList } from "../cmps/MailList.jsx"
+import { MailFilter } from "../cmps/MailFilter.jsx"
 
 
 const { useState, useEffect } = React
@@ -19,18 +20,29 @@ export function MailIndex() {
     }, [filterBy])
 
     function loadMails() {
+        console.log(filterBy)
         mailService.query(filterBy)
-            .then(mails => setMails(mails))
+            .then(mails => {
+                console.log(mails)
+                setMails(mails)
+            })
             .catch(err => {
                 console.log('err:', err)
                 showErrorMsg('cannot get mails!')
             })
     }
 
+    function onSetFilterBy(filterByToEdit) {
+        setFilterBy(prevFilter => ({ ...prevFilter, ...filterByToEdit }))
+    }
+
     if (!mails) return <div className="loader">Loading...</div>
     return (
-        <section className="mails-container">
-            <MailList mails={mails} />
+        <section className="mail-index">
+            <MailFilter onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
+            <section className="mails-container">
+                <MailList mails={mails} />
+            </section>
         </section>
     )
 }

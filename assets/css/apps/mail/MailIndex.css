@@ -1,1 +1,7 @@
  /* mail index  */
+
+ .mails-container {
+     border-radius: 2em;
+     margin: 1em;
+     background-color: white;
+ }

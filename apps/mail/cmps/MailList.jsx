@@ -9,7 +9,7 @@ export function MailList({ mails }) {
     return (
         <ul className="mail-list container">
             {mails.map(mail => (
-                <li className={`mail-item ${mail.isRead ? 'roboto-bold' : 'roboto-thin'}`} key={mail.id}>
+                <li className={`mail-item ${!mail.isRead ? 'roboto-bold unread' : 'roboto-thin'}`} key={mail.id}>
                     <MailPreview mail={mail} />
                 </li>
             ))}
