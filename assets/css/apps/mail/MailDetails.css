@@ -1,0 +1,29 @@
+.mail-details.container {
+    position: relative;
+    margin: 1em;
+    padding: 1em;
+    border-radius: 1em;
+    background-color: white;
+}
+
+.mail-details .mail-subject {
+    font-size: 1.5em;
+}
+
+.mail-details .mail-body {
+
+    font-size: 1.1m;
+}
+
+.mail-details .material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    rotate: 180deg;
+}

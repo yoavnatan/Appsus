@@ -4,7 +4,6 @@ import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.servic
 import { MailList } from "../cmps/MailList.jsx"
 import { MailFilter } from "../cmps/MailFilter.jsx"
 
-
 const { useState, useEffect } = React
 const { Link, useSearchParams } = ReactRouterDOM
 
@@ -32,6 +31,10 @@ export function MailIndex() {
             })
     }
 
+    function onReadMail(mail) {
+        mailService.readMail(mail)
+    }
+
     function onSetFilterBy(filterByToEdit) {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterByToEdit }))
     }
@@ -41,7 +44,7 @@ export function MailIndex() {
         <section className="mail-index">
             <MailFilter onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
             <section className="mails-container">
-                <MailList mails={mails} />
+                <MailList mails={mails} onReadMail={onReadMail} />
             </section>
         </section>
     )

@@ -13,7 +13,8 @@ export const mailService = {
     save,
     getEmptyMail,
     getDefaultFilter,
-    getFilterFromSearchParams
+    getFilterFromSearchParams,
+    readMail
 }
 
 const loggedinUser = {
@@ -37,7 +38,8 @@ function query(filterBy = {}) {
 }
 
 function get(mailId) {
-    return storageService.get(MAIL_KEY, mailId).then(_setNextPrevMailId)
+    return storageService.get(MAIL_KEY, mailId)
+    // .then(_setNextPrevMailId)
 }
 
 function remove(mailId) {
@@ -323,4 +325,10 @@ function _setNextPrevMailId(mail) {
 }
 
 
-
+function readMail(mail) {
+    if (!mail.isRead) {
+        mail.isRead = true
+        save(mail)
+        console.log(mail.id + 'has been read')
+    }
+}
