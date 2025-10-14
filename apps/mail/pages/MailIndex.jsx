@@ -40,13 +40,27 @@ export function MailIndex() {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterByToEdit }))
     }
 
+    function countUnreadMails() {
+        let count = 0
+        mails.forEach(mail => {
+            if (!mail.isRead) count++
+        })
+        return count
+    }
+
     if (!mails) return <div className="loader">Loading...</div>
     return (
         <section className="mail-index">
             <MailFolderList mails={mails} onReadMail={onReadMail} />
             <MailFilter onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
-            <section className="mails-container">
-                <MailList mails={mails} onReadMail={onReadMail} />
+            <section className="mail-index inner-container flex">
+                <div className="mail-folders container">
+                    <div className="roboto-bold mail-folder inbox">Inbox {countUnreadMails()}</div>
+                    <div className="roboto-bold mail-folder inbox">trash </div>
+                </div>
+                <section className="mails-container">
+                    <MailList mails={mails} onReadMail={onReadMail} />
+                </section>
             </section>
         </section>
     )
