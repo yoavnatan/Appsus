@@ -328,7 +328,7 @@ function _setNextPrevMailId(mail) {
 function readMail(mail) {
     if (!mail.isRead) {
         mail.isRead = true
-        save(mail)
-        console.log(mail.id + 'has been read')
+        return save(mail)
     }
+    return Promise.resolve()
 }

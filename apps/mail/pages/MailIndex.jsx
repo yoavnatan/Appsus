@@ -3,6 +3,7 @@ import { utilService } from "../../../services/util.service.js"
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { MailList } from "../cmps/MailList.jsx"
 import { MailFilter } from "../cmps/MailFilter.jsx"
+import { MailFolderList } from "../cmps/MailFolderList.jsx"
 
 const { useState, useEffect } = React
 const { Link, useSearchParams } = ReactRouterDOM
@@ -19,10 +20,8 @@ export function MailIndex() {
     }, [filterBy])
 
     function loadMails() {
-        console.log(filterBy)
         mailService.query(filterBy)
             .then(mails => {
-                console.log(mails)
                 setMails(mails)
             })
             .catch(err => {
@@ -33,6 +32,8 @@ export function MailIndex() {
 
     function onReadMail(mail) {
         mailService.readMail(mail)
+            .then(mail => setMails(prevMails => ({ ...prevMails, ...mail })))
+
     }
 
     function onSetFilterBy(filterByToEdit) {
@@ -42,6 +43,7 @@ export function MailIndex() {
     if (!mails) return <div className="loader">Loading...</div>
     return (
         <section className="mail-index">
+            <MailFolderList mails={mails} onReadMail={onReadMail} />
             <MailFilter onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
             <section className="mails-container">
                 <MailList mails={mails} onReadMail={onReadMail} />
