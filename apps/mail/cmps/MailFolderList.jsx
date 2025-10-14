@@ -1,6 +1,6 @@
 const { Link, NavLink } = ReactRouterDOM
 
-export function MailFolderList({ mails, onReadMail }) {
+export function MailFolderList({ mails, onReadMail, onSetFilterBy, filterBy }) {
 
     function countUnreadMails() {
         let count = 0
@@ -8,13 +8,16 @@ export function MailFolderList({ mails, onReadMail }) {
         return count
     }
 
+    const countURmails = countUnreadMails()
+
     return (
         <section className="mail-folders container">
 
             <nav>
-                <NavLink to="/mail/inbox">Inbox<span>{countUnreadMails()}</span></NavLink>
-                <NavLink to="/about">Trash</NavLink>
-                <NavLink to="/mail">Sent</NavLink>
+                <div className={`mail-folder ${countURmails > 0 ? 'roboto-bold' : 'roboto-thin'}`}
+                    onClick={() => onSetFilterBy()}>Inbox<span>{countUnreadMails()}</span></div>
+                <NavLink to="/about" className="mail-folder roboto-thin">Trash</NavLink>
+                <NavLink to="/mail" className="mail-folder roboto-thin">Sent</NavLink>
             </nav>
 
         </section>

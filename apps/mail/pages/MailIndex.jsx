@@ -49,15 +49,12 @@ export function MailIndex() {
     }
 
     if (!mails) return <div className="loader">Loading...</div>
+    console.log(mails)
     return (
         <section className="mail-index">
-            <MailFolderList mails={mails} onReadMail={onReadMail} />
             <MailFilter onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
             <section className="mail-index inner-container flex">
-                <div className="mail-folders container">
-                    <div className="roboto-bold mail-folder inbox">Inbox {countUnreadMails()}</div>
-                    <div className="roboto-bold mail-folder inbox">trash </div>
-                </div>
+                <MailFolderList mails={mails} onReadMail={onReadMail} onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
                 <section className="mails-container">
                     <MailList mails={mails} onReadMail={onReadMail} />
                 </section>

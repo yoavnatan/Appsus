@@ -29,8 +29,9 @@ function query(filterBy = {}) {
                 const regExp = new RegExp(filterBy.txt, 'i')
                 mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body))
             }
-            if (filterBy.body) {
-                mails = mails.filter(car => car.speed >= filterBy.minSpeed)
+            if (filterBy.isRead) {
+                if (filterBy.isRead === 'false') filterBy.isRead = false
+                mails = mails.filter(mail => mail.isRead === filterBy.isRead)
             }
             // console.log(' mails:', mails)
             return mails
@@ -304,10 +305,10 @@ function _createMail(vendor, speed = 250) {
 
 function getFilterFromSearchParams(searchParams) {
     const txt = searchParams.get('txt') || ''
-    const body = searchParams.get('body') || ''
+    const isRead = searchParams.get('isRead') || ''
     return {
         txt,
-        body
+        isRead,
     }
 }
 
