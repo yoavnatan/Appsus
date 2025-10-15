@@ -6,7 +6,7 @@ import { MailFilter } from "../cmps/MailFilter.jsx"
 import { MailFolderList } from "../cmps/MailFolderList.jsx"
 
 const { useState, useEffect } = React
-const { Link, useSearchParams } = ReactRouterDOM
+const { Link, useSearchParams, Outlet } = ReactRouterDOM
 
 export function MailIndex() {
 
@@ -52,6 +52,7 @@ export function MailIndex() {
     console.log(mails)
     return (
         <section className="mail-index">
+            <Link to='/mail/compose' className="btn btn-compose">Compose New</Link>
             <MailFilter onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
             <section className="mail-index inner-container flex">
                 <MailFolderList mails={mails} onReadMail={onReadMail} onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
@@ -59,6 +60,7 @@ export function MailIndex() {
                     <MailList mails={mails} onReadMail={onReadMail} />
                 </section>
             </section>
+            <Outlet />
         </section>
     )
 }
