@@ -13,6 +13,7 @@ export function MailIndex() {
     const [mails, setMails] = useState(null)
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
+    const [modalIsOpen, setModalIsOpen] = useState(false)
 
     useEffect(() => {
         setSearchParams(utilService.cleanObject(filterBy))
