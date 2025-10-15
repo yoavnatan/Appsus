@@ -9,3 +9,11 @@
 .mail-preview>*:not(:first-child) {
     flex: 1;
 }
+
+.mail-preview .btn-remove {
+    text-align: end;
+}
+
+.mail-preview .btn-remove:hover {
+    background-color: var(--bg4);
+}

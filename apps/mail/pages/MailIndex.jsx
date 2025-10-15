@@ -49,21 +49,34 @@ export function MailIndex() {
     }
 
     function onSendMail(mail) {
+        console.log(mail)
         mailService.save(mail)
             .then(mail => setMails(prevMails => ([...prevMails, ...mail])))
 
     }
 
+    function onRemoveMail(ev, mailId) {
+        ev.stopPropagation()
+        mailService.remove(mailId)
+            .then(() => {
+                showSuccessMsg('Mail removed')
+                setMails(mails => mails.filter(mail => mail.id !== mailId))
+            })
+            .catch(err => console.log('err', err))
+    }
+
     if (!mails) return <div className="loader">Loading...</div>
     console.log(mails)
     return (
-        <section className="mail-index">
-            <Link to='/mail/compose' className="btn btn-compose">Compose New</Link>
+        <section className="mail-index roboto-bold">
             <MailFilter onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
             <section className="mail-index inner-container flex">
-                <MailFolderList mails={mails} onReadMail={onReadMail} onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
+                <div className="aside-bar">
+                    <Link to='/mail/compose' className="btn btn-compose">Compose New</Link>
+                    <MailFolderList mails={mails} onReadMail={onReadMail} onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
+                </div>
                 <section className="mails-container">
-                    <MailList mails={mails} onReadMail={onReadMail} />
+                    <MailList mails={mails} onReadMail={onReadMail} onRemoveMail={onRemoveMail} />
                 </section>
             </section>
             <Outlet context={[onSendMail]} />

@@ -9,3 +9,11 @@
  .mail-index.inner-container .mail-folders {
      padding: 3em 2em 0 0;
  }
+
+ .btn-compose {
+     margin-top: 1em;
+     margin-left: 0.5em;
+     padding: 1em;
+     border-radius: 0.5em;
+     background-color: var(--bg02);
+ }

@@ -1,6 +1,6 @@
-export function MailPreview({ mail }) {
+export function MailPreview({ mail, onRemoveMail }) {
 
-    const { subject, body, from, isRead } = mail
+    const { subject, body, from, isRead, id } = mail
     return (
         <article className={`mail-preview ${!isRead ? 'unread' : 'read'}`}>
             <span className="material-symbols-outlined">
@@ -9,7 +9,9 @@ export function MailPreview({ mail }) {
             <div>{from}</div>
             <div>{subject}</div>
             <div>{body}</div>
-
+            <span className="material-symbols-outlined btn-remove" onClick={(event) => onRemoveMail(event, id)}>
+                delete
+            </span>
         </article>
     )
 }
