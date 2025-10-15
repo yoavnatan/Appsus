@@ -31,7 +31,7 @@ export function MailFolderList({ mails, onReadMail, onSetFilterBy, filterBy }) {
                 <div className={`mail-folder ${countURmails > 0 ? 'roboto-bold' : 'roboto-thin'}`}
                     onClick={() => handleFolderChange('inbox')}>Inbox<span>{countUnreadMails()}</span></div>
                 <div className="mail-folder roboto-thin">starred</div>
-                <div className="mail-folder roboto-thin">Trash</div>
+                <div className="mail-folder roboto-thin" onClick={() => handleFolderChange('trash')}>Trash</div>
                 <div className="mail-folder roboto-thin" onClick={() => handleFolderChange('sent')}>Sent</div>
                 <div className="mail-folder roboto-thin">draft</div>
             </nav>

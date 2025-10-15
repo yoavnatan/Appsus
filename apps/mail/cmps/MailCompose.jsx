@@ -1,20 +1,27 @@
 import { mailService } from "../services/mail.service.js"
+import { utilService } from "../../../services/util.service.js"
 
 const { useNavigate, useOutletContext } = ReactRouterDOM
 
-const { useState } = React
+const { useState, useEffect } = React
 
 export function MailCompose() {
 
     const navigate = useNavigate()
-    const [onSendMail] = useOutletContext()
+    const [onSendMail, filterBy, setSearchParams, searchParams] = useOutletContext()
 
     const [mailToSend, setMailToSend] = useState(mailService.getEmptyMail())
 
+    useEffect(() => {
+        setSearchParams(utilService.cleanObject(filterBy))
+    }, [])
 
     function closeModal(ev) {
         ev.preventDefault()
-        navigate('/mail')
+        navigate({
+            pathname: '/mail',
+            search: `${searchParams.toString()}`
+        })
     }
 
     function handleChange({ target }) {
@@ -25,9 +32,14 @@ export function MailCompose() {
     }
 
     function onSubmitCompose(ev) {
+        console.log('search params: ', searchParams)
         ev.preventDefault()
         onSendMail(mailToSend)
-        navigate('/mail')
+        navigate({
+            pathname: '/mail',
+            search: `${searchParams.toString()}`
+        })
+
     }
 
 
@@ -38,8 +50,8 @@ export function MailCompose() {
                 <input type="text" className="compose-to" name="to" id="compose-to" placeholder="to" value={mailToSend.to} onChange={handleChange}></input>
                 <input type="text" className="compose-subject" name="subject" id="compose-subject" placeholder="subject" value={mailToSend.subject} onChange={handleChange}></input>
                 {/* <input type="text" className="compose-message" name="compose-message" id="compose-message" placeholder="message"></input> */}
-                <textarea className="compose-message" id="compose-message" name="body" rows="10" cols="30" value={mailToSend.body} onChange={handleChange}></textarea>
-                <button className="send-btn">Send</button>
+                <textarea className="compose-body" id="compose-message" name="body" rows="10" cols="30" value={mailToSend.body} onChange={handleChange}></textarea>
+                <button className="btn-send">Send</button>
             </form>
         </section>
     )

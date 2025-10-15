@@ -18,7 +18,7 @@ export const mailService = {
     sendMail
 }
 
-const loggedinUser = {
+export const loggedinUser = {
     email: 'user@appsus.com',
     fullname: 'Mahatma Appsus'
 }
@@ -43,7 +43,7 @@ function query(filterBy = {}) {
                         mails = mails.filter(mail => mail.from === loggedinUser.email)
                         break
                     case 'trash':
-                        mails = mails.filter(mail => mail.removedAt !== null)
+                        mails = mails.filter(mail => mail.removedAt !== null && mail.removedAt)
                         break
                 }
 
@@ -73,7 +73,7 @@ function save(mail) {
 
 function getEmptyMail() {
 
-    return { to: '', subject: '', body: '' }
+    return { to: '', subject: '', body: '', createdAt: Date.now(), isRead: true, removedAt: null }
 }
 
 function getDefaultFilter() {
@@ -327,8 +327,8 @@ function getFilterFromSearchParams(searchParams) {
     return {
         txt,
         isRead,
-        status,
-        isStared
+        status: 'inbox',
+        isStared,
     }
 }
 

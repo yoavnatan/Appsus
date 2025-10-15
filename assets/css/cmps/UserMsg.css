@@ -2,7 +2,7 @@
     position: fixed;
     bottom: -100px;
     right: .5em;
-    padding: .5em;
+    padding: 1em;
     background-color: #111;
 }
 
@@ -12,14 +12,15 @@
 }
 
 .user-msg.success {
-    background-color: var(--color2);
+    background-color: var(--gray4);
+    color: var(--gray2)
 }
 
 .user-msg.error {
     background-color: var(--color3);
 }
 
-.user-msg button{
-   float: right;
-   margin-inline-start: 4px;
+.user-msg button {
+    float: right;
+    margin-inline-start: 4px;
 }

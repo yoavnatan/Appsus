@@ -15,6 +15,7 @@ export function MailIndex() {
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
 
     useEffect(() => {
+        console.log('filter by:', filterBy)
         setSearchParams(utilService.cleanObject(filterBy))
         loadMails()
     }, [filterBy])
@@ -52,7 +53,6 @@ export function MailIndex() {
         console.log(mail)
         mailService.sendMail(mail)
             .then(mail => setMails(prevMails => ([...prevMails, mail])))
-
     }
 
     function onRemoveMail(ev, mailId) {
@@ -79,7 +79,7 @@ export function MailIndex() {
                     <MailList mails={mails} onReadMail={onReadMail} onRemoveMail={onRemoveMail} />
                 </section>
             </section>
-            <Outlet context={[onSendMail]} />
+            <Outlet context={[onSendMail, filterBy, setSearchParams, searchParams]} />
         </section>
     )
 }
