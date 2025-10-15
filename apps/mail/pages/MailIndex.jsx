@@ -5,7 +5,7 @@ import { MailList } from "../cmps/MailList.jsx"
 import { MailFilter } from "../cmps/MailFilter.jsx"
 import { MailFolderList } from "../cmps/MailFolderList.jsx"
 
-const { useState, useEffect } = React
+const { useState, useEffect, useRef } = React
 const { Link, useSearchParams, Outlet } = ReactRouterDOM
 
 export function MailIndex() {
@@ -13,6 +13,8 @@ export function MailIndex() {
     const [mails, setMails] = useState(null)
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
+
+    const sortDir = useRef(1)
 
     useEffect(() => {
         console.log('filter by:', filterBy)
@@ -74,6 +76,12 @@ export function MailIndex() {
             })
     }
 
+    function onSortBy(sort) {
+        setFilterBy(prevFilter => ({ ...prevFilter, ['sortBy']: sort, ['sortDir']: sortDir.current }))
+        sort === filterBy.sortBy ? sortDir.current *= -1 : sortDir.current *= 1
+        console.log(filterBy)
+    }
+
     if (!mails) return <div className="loader">Loading...</div>
     console.log(mails)
     return (
@@ -85,6 +93,10 @@ export function MailIndex() {
                     <MailFolderList mails={mails} onReadMail={onReadMail} onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
                 </div>
                 <section className="mails-container">
+                    <section className="sorting-container">
+                        <button className="btn-sort-date" onClick={() => onSortBy('date')}>Date</button>
+                        <button className="btn-sort-title" onClick={() => onSortBy('title')}>Title</button>
+                    </section>
                     <MailList mails={mails} onReadMail={onReadMail} onRemoveMail={filterBy.status === 'trash' ? onRemoveMail : onDeleteMail} />
                 </section>
             </section>

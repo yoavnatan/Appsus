@@ -49,6 +49,15 @@ function query(filterBy = {}) {
                 }
 
             }
+            if (filterBy.sortBy) {
+                if (filterBy.sortBy === 'title') {
+                    mails.sort((a, b) => a.subject.localeCompare(b.subject) * filterBy.sortDir)
+                }
+                else if (filterBy.sortBy === 'date') {
+                    mails.sort((a, b) => (a.sentAt + b.sentAt) * filterBy.sortDir)
+                }
+            }
+
             // console.log(' mails:', mails)
             return mails
         })
@@ -334,11 +343,13 @@ function getFilterFromSearchParams(searchParams) {
     const isRead = searchParams.get('isRead') || ''
     const status = searchParams.get('status') || ''
     const isStared = searchParams.get('stared') || ''
+    const sortBy = searchParams.get('sortBy') || ''
     return {
         txt,
         isRead,
         status: 'inbox',
         isStared,
+        sortBy,
     }
 }
 
