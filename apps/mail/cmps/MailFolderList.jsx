@@ -16,6 +16,11 @@ export function MailFolderList({ mails, onReadMail, onSetFilterBy, filterBy }) {
         return count
     }
 
+    function handleFolderChange(folder) {
+        setFilterByToEdit(prevFilter => ({ ...prevFilter, ['status']: folder }))
+
+    }
+
     const countURmails = countUnreadMails()
 
     return (
@@ -23,7 +28,7 @@ export function MailFolderList({ mails, onReadMail, onSetFilterBy, filterBy }) {
 
             <nav>
                 <div className={`mail-folder ${countURmails > 0 ? 'roboto-bold' : 'roboto-thin'}`}
-                    onClick={() => onSetFilterBy()}>Inbox<span>{countUnreadMails()}</span></div>
+                    onClick={() => handleFolderChange('inbox')}>Inbox<span>{countUnreadMails()}</span></div>
                 <NavLink to="/mail" className="mail-folder roboto-thin">starred</NavLink>
                 <NavLink to="/about" className="mail-folder roboto-thin">Trash</NavLink>
                 <NavLink to="/mail" className="mail-folder roboto-thin">Sent</NavLink>

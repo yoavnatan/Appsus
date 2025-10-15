@@ -33,6 +33,20 @@ function query(filterBy = {}) {
                 if (filterBy.isRead === 'false') filterBy.isRead = false
                 mails = mails.filter(mail => mail.isRead === filterBy.isRead)
             }
+            if (filterBy.status) {
+                switch (filterBy.status) {
+                    case 'inbox':
+                        mails = mails.filter(mail => mail.to === loggedinUser.email || loggedinUser.fullname)
+                        break
+                    case 'sent':
+                        mails = mails.filter(mail => mail.from === loggedinUser.email || loggedinUser.fullname)
+                        break
+                    case 'trash':
+                        mails = mails.filter(mail => mail.removedAt !== null)
+                        break
+                }
+
+            }
             // console.log(' mails:', mails)
             return mails
         })
