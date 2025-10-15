@@ -65,6 +65,15 @@ export function MailIndex() {
             .catch(err => console.log('err', err))
     }
 
+    function onDeleteMail(ev, mailId) {
+        ev.stopPropagation()
+        mailService.deleteMail(mailId)
+            .then(() => {
+                showSuccessMsg('Mail deleted')
+                loadMails()
+            })
+    }
+
     if (!mails) return <div className="loader">Loading...</div>
     console.log(mails)
     return (
@@ -76,7 +85,7 @@ export function MailIndex() {
                     <MailFolderList mails={mails} onReadMail={onReadMail} onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
                 </div>
                 <section className="mails-container">
-                    <MailList mails={mails} onReadMail={onReadMail} onRemoveMail={onRemoveMail} />
+                    <MailList mails={mails} onReadMail={onReadMail} onRemoveMail={filterBy.status === 'trash' ? onRemoveMail : onDeleteMail} />
                 </section>
             </section>
             <Outlet context={[onSendMail, filterBy, setSearchParams, searchParams]} />

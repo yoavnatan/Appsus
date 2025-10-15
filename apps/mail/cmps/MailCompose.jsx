@@ -32,7 +32,6 @@ export function MailCompose() {
     }
 
     function onSubmitCompose(ev) {
-        console.log('search params: ', searchParams)
         ev.preventDefault()
         onSendMail(mailToSend)
         navigate({
