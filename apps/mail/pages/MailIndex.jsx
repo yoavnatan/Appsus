@@ -50,8 +50,8 @@ export function MailIndex() {
 
     function onSendMail(mail) {
         console.log(mail)
-        mailService.save(mail)
-            .then(mail => setMails(prevMails => ([...prevMails, ...mail])))
+        mailService.sendMail(mail)
+            .then(mail => setMails(prevMails => ([...prevMails, mail])))
 
     }
 

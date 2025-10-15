@@ -14,7 +14,8 @@ export const mailService = {
     getEmptyMail,
     getDefaultFilter,
     getFilterFromSearchParams,
-    readMail
+    readMail,
+    sendMail
 }
 
 const loggedinUser = {
@@ -36,10 +37,10 @@ function query(filterBy = {}) {
             if (filterBy.status) {
                 switch (filterBy.status) {
                     case 'inbox':
-                        mails = mails.filter(mail => mail.to === loggedinUser.email || loggedinUser.fullname)
+                        mails = mails.filter(mail => mail.to === loggedinUser.email)
                         break
                     case 'sent':
-                        mails = mails.filter(mail => mail.from === loggedinUser.email || loggedinUser.fullname)
+                        mails = mails.filter(mail => mail.from === loggedinUser.email)
                         break
                     case 'trash':
                         mails = mails.filter(mail => mail.removedAt !== null)
@@ -351,4 +352,11 @@ function readMail(mail) {
         return save(mail)
     }
     return Promise.resolve()
+}
+
+function sendMail(mail) {
+    mail.from = loggedinUser.email
+    mail.sentAt = Date.now()
+    console.log(mail)
+    return save(mail)
 }
