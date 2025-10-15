@@ -56,8 +56,9 @@ function save(mail) {
     }
 }
 
-function getEmptyMail(vendor = '', speed = '') {
-    return { vendor, speed }
+function getEmptyMail() {
+
+    return { to: '', subject: '', body: '' }
 }
 
 function getDefaultFilter() {

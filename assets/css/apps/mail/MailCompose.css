@@ -1,4 +1,10 @@
-.compose-modal {
+.compose-modal-form {
     position: absolute;
     bottom: 0;
+    right: 0;
+    display: grid;
+}
+
+.compose-message {
+    resize: none;
 }

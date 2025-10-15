@@ -13,7 +13,6 @@ export function MailIndex() {
     const [mails, setMails] = useState(null)
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
-    const [modalIsOpen, setModalIsOpen] = useState(false)
 
     useEffect(() => {
         setSearchParams(utilService.cleanObject(filterBy))
@@ -49,6 +48,12 @@ export function MailIndex() {
         return count
     }
 
+    function onSendMail(mail) {
+        mailService.save(mail)
+            .then(mail => setMails(prevMails => ([...prevMails, ...mail])))
+
+    }
+
     if (!mails) return <div className="loader">Loading...</div>
     console.log(mails)
     return (
@@ -61,7 +66,7 @@ export function MailIndex() {
                     <MailList mails={mails} onReadMail={onReadMail} />
                 </section>
             </section>
-            <Outlet />
+            <Outlet context={[onSendMail]} />
         </section>
     )
 }

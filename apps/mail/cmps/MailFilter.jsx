@@ -38,7 +38,6 @@ export function MailFilter({ filterBy, onSetFilterBy }) {
     }
 
     const { txt, isRead } = filterByToEdit
-    console.log(filterBy)
 
     return (
         <section className="mail-filter container">
