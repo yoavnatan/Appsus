@@ -307,9 +307,13 @@ function _createMail(vendor, speed = 250) {
 function getFilterFromSearchParams(searchParams) {
     const txt = searchParams.get('txt') || ''
     const isRead = searchParams.get('isRead') || ''
+    const status = searchParams.get('status') || ''
+    const isStared = searchParams.get('stared') || ''
     return {
         txt,
         isRead,
+        status,
+        isStared
     }
 }
 

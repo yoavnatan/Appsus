@@ -43,8 +43,6 @@ export function MailFilter({ filterBy, onSetFilterBy }) {
         <section className="mail-filter container">
             <form onSubmit={onSubmitFilter}>
 
-
-
                 <input className="search-bar" onChange={handleChange} value={txt} name='txt' id='txt' type="text" placeholder="search"></input>
 
                 {/* <input type="radio" name="isRead" id="all" value={''} onChange={handleChange} checked={filterBy.isRead === ''} />

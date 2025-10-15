@@ -1,6 +1,14 @@
 const { Link, NavLink } = ReactRouterDOM
+const { useState, useEffect, useRef } = React
 
 export function MailFolderList({ mails, onReadMail, onSetFilterBy, filterBy }) {
+
+    const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
+
+    useEffect(() => {
+        setFilterByToEdit(filterByToEdit)
+    }, [filterByToEdit])
+
 
     function countUnreadMails() {
         let count = 0

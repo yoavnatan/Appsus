@@ -17,3 +17,8 @@
      border-radius: 0.5em;
      background-color: var(--bg02);
  }
+
+ .aside-bar {
+     width: 200px;
+     margin-top: 50px;
+ }
