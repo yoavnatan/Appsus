@@ -380,3 +380,7 @@ function sendMail(mail) {
     mail.sentAt = Date.now()
     return save(mail)
 }
+
+function starMail(mailId) {
+    mail
+}

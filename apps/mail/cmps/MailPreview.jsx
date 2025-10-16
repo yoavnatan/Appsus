@@ -1,5 +1,5 @@
 import { loggedinUser } from "../services/mail.service.js"
-export function MailPreview({ mail, onRemoveMail }) {
+export function MailPreview({ mail, onRemoveMail, onStarMail }) {
 
     const { subject, body, from, to, isRead, id } = mail
     return (

@@ -76,6 +76,15 @@ export function MailIndex() {
             })
     }
 
+    function onStarMail(ev, mail) {
+        ev.stopPropagation()
+        mailService.starMail(mail)
+            .then(() => {
+                loadMails()
+            })
+
+    }
+
     function onSortBy(sort) {
         setFilterBy(prevFilter => ({ ...prevFilter, ['sortBy']: sort, ['sortDir']: sortDir.current }))
         sort === filterBy.sortBy ? sortDir.current *= -1 : sortDir.current = 1
@@ -94,14 +103,14 @@ export function MailIndex() {
                 </div>
                 <section className="mails-container">
                     <section className="sorting-container">
-                        <button className="btn btn-sort-date" onClick={() => onSortBy('date')}>Date<span class="material-symbols-outlined">
+                        <button className="btn btn-sort-date" onClick={() => onSortBy('date')}>Date<span className="material-symbols-outlined">
                             {filterBy.sortBy === 'date' && sortDir.current === 1 ? 'keyboard_arrow_up' : filterBy.sortBy === 'date' && 'keyboard_arrow_down'}
                         </span></button>
-                        <button className="btn btn-sort-title" onClick={() => onSortBy('title')}>Title<span class="material-symbols-outlined">
+                        <button className="btn btn-sort-title" onClick={() => onSortBy('title')}>Title<span className="material-symbols-outlined">
                             {filterBy.sortBy === 'title' && sortDir.current === 1 ? 'keyboard_arrow_up' : filterBy.sortBy === 'title' && 'keyboard_arrow_down'}
                         </span></button>
                     </section>
-                    <MailList mails={mails} onReadMail={onReadMail} onRemoveMail={filterBy.status === 'trash' ? onRemoveMail : onDeleteMail} />
+                    <MailList mails={mails} onReadMail={onReadMail} onRemoveMail={filterBy.status === 'trash' ? onRemoveMail : onDeleteMail} onStarMail={onStarMail} />
                 </section>
             </section>
             <Outlet context={[onSendMail, filterBy, setSearchParams, searchParams]} />
