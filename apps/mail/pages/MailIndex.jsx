@@ -78,7 +78,7 @@ export function MailIndex() {
 
     function onSortBy(sort) {
         setFilterBy(prevFilter => ({ ...prevFilter, ['sortBy']: sort, ['sortDir']: sortDir.current }))
-        sort === filterBy.sortBy ? sortDir.current *= -1 : sortDir.current *= 1
+        sort === filterBy.sortBy ? sortDir.current *= -1 : sortDir.current = 1
         console.log(filterBy)
     }
 
@@ -94,8 +94,12 @@ export function MailIndex() {
                 </div>
                 <section className="mails-container">
                     <section className="sorting-container">
-                        <button className="btn-sort-date" onClick={() => onSortBy('date')}>Date</button>
-                        <button className="btn-sort-title" onClick={() => onSortBy('title')}>Title</button>
+                        <button className="btn btn-sort-date" onClick={() => onSortBy('date')}>Date<span class="material-symbols-outlined">
+                            {filterBy.sortBy === 'date' && sortDir.current === 1 ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}
+                        </span></button>
+                        <button className="btn btn-sort-title" onClick={() => onSortBy('title')}>Title<span class="material-symbols-outlined">
+                            {filterBy.sortBy === 'title' && sortDir.current === 1 ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}
+                        </span></button>
                     </section>
                     <MailList mails={mails} onReadMail={onReadMail} onRemoveMail={filterBy.status === 'trash' ? onRemoveMail : onDeleteMail} />
                 </section>

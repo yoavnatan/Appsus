@@ -24,3 +24,21 @@
      margin-top: 50px;
      margin-right: 1em;
  }
+
+ .sorting-container {
+     margin: 1em;
+     display: flex;
+     gap: 5px;
+ }
+
+ .sorting-container .btn {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     width: 85px;
+     border-radius: 2em;
+     background-color: var(--bg0);
+     padding: 0.7em;
+     cursor: pointer;
+     border: 1px solid var(--gray2)
+ }
