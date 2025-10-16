@@ -97,7 +97,6 @@ export function MailIndex() {
 
     }
 
-
     function onSortBy(sort) {
         setFilterBy(prevFilter => ({ ...prevFilter, ['sortBy']: sort, ['sortDir']: sortDir.current }))
         sort === filterBy.sortBy ? sortDir.current *= -1 : sortDir.current = 1

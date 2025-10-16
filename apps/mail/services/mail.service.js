@@ -400,6 +400,7 @@ function readManualy(mail) {
 function sendMail(mail) {
     mail.from = loggedinUser.email
     mail.sentAt = Date.now()
+    mail.isDraft = false
     return save(mail)
 }
 
