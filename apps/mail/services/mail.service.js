@@ -17,7 +17,8 @@ export const mailService = {
     readMail,
     sendMail,
     deleteMail,
-    starMail
+    starMail,
+    readManualy,
 }
 
 export const loggedinUser = {
@@ -376,6 +377,11 @@ function readMail(mail) {
         return save(mail)
     }
     return Promise.resolve()
+}
+
+function readManualy(mail) {
+    mail.isRead = !mail.isRead
+    return save(mail)
 }
 
 function sendMail(mail) {

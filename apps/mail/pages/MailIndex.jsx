@@ -35,8 +35,13 @@ export function MailIndex() {
 
     function onReadMail(mail) {
         mailService.readMail(mail)
-            .then(mail => setMails(prevMails => ({ ...prevMails, ...mail })))
+            .then(() => loadMails())
 
+    }
+
+    function onReadMailManuely(mail) {
+        mailService.readManualy(mail)
+            .then(() => loadMails())
     }
 
     function onSetFilterBy(filterByToEdit) {
@@ -110,7 +115,7 @@ export function MailIndex() {
                             {filterBy.sortBy === 'title' && sortDir.current === 1 ? 'keyboard_arrow_up' : filterBy.sortBy === 'title' && 'keyboard_arrow_down'}
                         </span></button>
                     </section>
-                    <MailList mails={mails} onReadMail={onReadMail} onRemoveMail={filterBy.status === 'trash' ? onRemoveMail : onDeleteMail} onStarMail={onStarMail} />
+                    <MailList mails={mails} onReadMail={onReadMail} onRemoveMail={filterBy.status === 'trash' ? onRemoveMail : onDeleteMail} onStarMail={onStarMail} onReadMailManuely={onReadMailManuely} />
                 </section>
             </section>
             <Outlet context={[onSendMail, filterBy, setSearchParams, searchParams]} />

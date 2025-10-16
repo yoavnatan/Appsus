@@ -1,5 +1,5 @@
 import { loggedinUser } from "../services/mail.service.js"
-export function MailPreview({ mail, onRemoveMail, onStarMail }) {
+export function MailPreview({ mail, onRemoveMail, onStarMail, onClickManualyRead }) {
 
     const { subject, body, from, to, isRead, id, isStarred } = mail
     return (
@@ -10,8 +10,8 @@ export function MailPreview({ mail, onRemoveMail, onStarMail }) {
             <div>{(mail.to === loggedinUser.email) ? from : `to: ${to}`}</div>
             <div>{subject}</div>
             <div>{body}</div>
-            <div className="symbols container">
-                <span class="material-symbols-outlined">
+            <div className="symbols container" >
+                <span className="material-symbols-outlined" onClick={(event) => onClickManualyRead(event, mail)}>
                     {!isRead ? 'mark_email_unread' : 'drafts'}
                 </span>
                 <span className="material-symbols-outlined btn-remove" onClick={(event) => onRemoveMail(event, id)}>
