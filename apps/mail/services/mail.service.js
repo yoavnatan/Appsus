@@ -349,7 +349,7 @@ function getFilterFromSearchParams(searchParams) {
         isRead,
         status: 'inbox',
         isStared,
-        sortBy,
+        sortBy: 'date',
     }
 }
 
