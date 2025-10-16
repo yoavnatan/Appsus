@@ -15,15 +15,24 @@ export function MailIndex() {
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
 
     const sortDir = useRef(filterBy.sortDir)
+    const filtrerRef = useRef()
 
     useEffect(() => {
         console.log('filter by:', filterBy)
+        filtrerRef.current = filterBy
         setSearchParams(utilService.cleanObject(filterBy))
         loadMails()
+
     }, [filterBy])
 
+    // useEffect(() => {
+    //     filtrerRef.current = filterBy
+    //     console.log(filtrerRef.current)
+    // },[filterBy])
+
     function loadMails() {
-        mailService.query(filterBy)
+        console.log(filtrerRef.current)
+        mailService.query(filtrerRef.current)
             .then(mails => {
                 setMails(mails)
             })
@@ -103,6 +112,12 @@ export function MailIndex() {
         console.log(filterBy)
     }
 
+    function onSetMails(mail) {
+        setMails(prevMails => [...prevMails, mail])
+    }
+
+
+
     if (!mails) return <div className="loader">Loading...</div>
     console.log(mails)
     return (
@@ -128,7 +143,7 @@ export function MailIndex() {
                     <MailList mails={mails} onReadMail={onReadMail} onRemoveMail={filterBy.status === 'trash' ? onRemoveMail : onDeleteMail} onStarMail={onStarMail} onReadMailManuely={onReadMailManuely} />
                 </section>
             </section>
-            <Outlet context={[onSendMail, filterBy, setSearchParams, searchParams, onSaveDraft, loadMails]} />
+            <Outlet context={[onSendMail, filterBy, setSearchParams, searchParams, onSaveDraft, loadMails, onSetMails]} />
         </section>
     )
 }

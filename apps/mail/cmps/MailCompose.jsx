@@ -11,9 +11,8 @@ export function MailCompose() {
     console.log(location.state)
 
     const navigate = useNavigate()
-    const [onSendMail, filterBy, setSearchParams, searchParams, onSaveDraft, loadMails] = useOutletContext()
+    const [onSendMail, filterBy, setSearchParams, searchParams, onSaveDraft, loadMails, onSetMails] = useOutletContext()
     const [mailToSend, setMailToSend] = useState(location.state ? location.state : mailService.getEmptyMail())
-    console.log('mailtosend: ', mailToSend)
     const intervalIdRef = useRef()
     const mailTosendRef = useRef()
 
@@ -54,8 +53,13 @@ export function MailCompose() {
 
     function saveDraft() {
         onSaveDraft(mailTosendRef.current)
-            .then(setMailToSend)
-            .then(loadMails())
+            .then(mail => {
+                console.log(mail)
+                setMailToSend(mail)
+                return mail
+            })
+            .then(loadMails)
+        // .then((mail) => onSetMails(mail))
         // .then(() => navigate({
         //     pathname: '/mail/compose',
         //     search: `${searchParams.toString()}`
