@@ -1,7 +1,7 @@
 import { mailService } from "../services/mail.service.js"
 
 const { useParams, useNavigate, Link } = ReactRouterDOM
-const { useState, useEffect } = React
+const { useState, useEffect, useRef } = React
 
 export function MailDetails() {
 
@@ -10,6 +10,7 @@ export function MailDetails() {
     const params = useParams()
     const navigate = useNavigate()
 
+    let toggleRead = useRef('read')
     useEffect(() => {
         loadMail()
     }, [params.mailId])
@@ -27,6 +28,13 @@ export function MailDetails() {
         navigate('/mail')
     }
 
+    function onUnreadManualy() {
+        toggleRead.current = toggleRead.current === 'read' ? 'unread' : 'read'
+        mailService.get(params.mailId)
+            .then(mailService.readManualy)
+            .then(mail => setMail(mail))
+    }
+
     if (isLoading) return <div className="loader">Loading...</div>
 
     const { subject, body } = mail
@@ -36,8 +44,11 @@ export function MailDetails() {
 
             <div className="mail-subject roboto-bold">{subject}</div>
             <p className="mail-body roboto-thin">{body}</p>
-            <span onClick={onBack} className="material-symbols-outlined">
+            <span onClick={onBack} className="btn-back material-symbols-outlined">
                 arrow_back
+            </span>
+            <span className="btn-toggle-read material-symbols-outlined" onClick={onUnreadManualy}>
+                {toggleRead.current === 'read' ? 'drafts' : 'mark_email_unread'}
             </span>
         </section>
     )

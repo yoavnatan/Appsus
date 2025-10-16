@@ -372,11 +372,10 @@ function _setNextPrevMailId(mail) {
 
 
 function readMail(mail) {
-    if (!mail.isRead) {
-        mail.isRead = true
-        return save(mail)
-    }
-    return Promise.resolve()
+
+    mail.isRead = true
+    return save(mail)
+
 }
 
 function readManualy(mail) {
