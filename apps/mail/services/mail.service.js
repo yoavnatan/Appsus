@@ -31,7 +31,7 @@ function query(filterBy = {}) {
         .then(mails => {
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
-                mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body))
+                mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body) || regExp.test(mail.from))
             }
             if (filterBy.isRead) {
                 if (filterBy.isRead === 'false') filterBy.isRead = false
