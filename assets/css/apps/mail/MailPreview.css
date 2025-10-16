@@ -1,7 +1,8 @@
 .mail-preview {
-    display: flex;
-    justify-content: start;
-    align-items: center;
+    display: grid;
+    grid-auto-flow: column;
+    /* justify-content: start;
+    align-items: center; */
 
 }
 
@@ -16,4 +17,10 @@
 
 .mail-preview .btn-remove:hover {
     background-color: var(--bg4);
+}
+
+.mail-preview .symbols {
+    display: flex;
+    justify-self: end;
+    gap: 1em;
 }

@@ -12,7 +12,7 @@
      font-size: 0.875rem;
  }
 
- .mail-item.unread {
+ .mail-item.read {
      background-color: var(--bg5);
  }
 

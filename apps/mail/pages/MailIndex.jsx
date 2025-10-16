@@ -80,7 +80,6 @@ export function MailIndex() {
         ev.stopPropagation()
         mailService.starMail(mail)
             .then(() => {
-                showSuccessMsg('mailStarred')
                 loadMails()
             })
 

@@ -47,6 +47,8 @@ function query(filterBy = {}) {
                     case 'trash':
                         mails = mails.filter(mail => mail.removedAt !== null && mail.removedAt)
                         break
+                    case 'starred':
+                        mails = mails.filter(mail => mail.isStarred)
                 }
 
             }
