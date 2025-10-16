@@ -114,6 +114,9 @@ export function MailIndex() {
                         <button className="btn btn-sort-title" onClick={() => onSortBy('title')}>Title<span className="material-symbols-outlined">
                             {filterBy.sortBy === 'title' && sortDir.current === 1 ? 'keyboard_arrow_up' : filterBy.sortBy === 'title' && 'keyboard_arrow_down'}
                         </span></button>
+                        <button className="btn btn-sort-from" onClick={() => onSortBy('from')}>From<span className="material-symbols-outlined">
+                            {filterBy.sortBy === 'from' && sortDir.current === 1 ? 'keyboard_arrow_up' : filterBy.sortBy === 'from' && 'keyboard_arrow_down'}
+                        </span></button>
                     </section>
                     <MailList mails={mails} onReadMail={onReadMail} onRemoveMail={filterBy.status === 'trash' ? onRemoveMail : onDeleteMail} onStarMail={onStarMail} onReadMailManuely={onReadMailManuely} />
                 </section>

@@ -57,6 +57,9 @@ function query(filterBy = {}) {
                 if (filterBy.sortBy === 'title') {
                     mails.sort((a, b) => a.subject.localeCompare(b.subject) * filterBy.sortDir)
                 }
+                else if (filterBy.sortBy === 'from') {
+                    mails.sort((a, b) => a.from.localeCompare(b.from) * filterBy.sortDir)
+                }
                 else if (filterBy.sortBy === 'date') {
                     mails.sort((a, b) => (a.sentAt + b.sentAt) * filterBy.sortDir)
                 }
