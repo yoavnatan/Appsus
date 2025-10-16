@@ -7,8 +7,14 @@ export function MailList({ mails, onReadMail, onRemoveMail, onReadMailManuely, o
     const navigate = useNavigate()
 
     function onClickMail(mail) {
-        navigate(`/mail/${mail.id}`)
-        onReadMail(mail)
+        if (mail.isDraft) {
+            console.log('loading draft')
+            navigate('/mail/compose', { state: mail })
+        }
+        else {
+            navigate(`/mail/${mail.id}`)
+            onReadMail(mail)
+        }
     }
 
     function onClickManualyRead(ev, mail) {

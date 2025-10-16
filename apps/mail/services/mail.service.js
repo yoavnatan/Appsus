@@ -19,6 +19,7 @@ export const mailService = {
     deleteMail,
     starMail,
     readManualy,
+    saveDraft,
 }
 
 export const loggedinUser = {
@@ -40,7 +41,7 @@ function query(filterBy = {}) {
             if (filterBy.status) {
                 switch (filterBy.status) {
                     case 'inbox':
-                        mails = mails.filter(mail => mail.to === loggedinUser.email && !mail.removedAt)
+                        mails = mails.filter(mail => (mail.to === loggedinUser.email && !mail.removedAt))
                         break
                     case 'sent':
                         mails = mails.filter(mail => mail.from === loggedinUser.email && !mail.removedAt)
@@ -50,6 +51,9 @@ function query(filterBy = {}) {
                         break
                     case 'starred':
                         mails = mails.filter(mail => mail.isStarred)
+                        break
+                    case 'draft':
+                        mails = mails.filter(mail => mail.isDraft && !mail.removedAt)
                 }
 
             }
@@ -351,13 +355,20 @@ function getFilterFromSearchParams(searchParams) {
     const status = searchParams.get('status') || ''
     const isStared = searchParams.get('stared') || ''
     const sortBy = searchParams.get('sortBy') || ''
+    const sortDir = searchParams.get('sortDir') || ''
     return {
         txt,
         isRead,
-        status: 'inbox',
+        status,
         isStared,
-        sortBy: 'date',
+        sortBy,
+        sortDir
     }
+}
+
+function saveDraft(mail) {
+    if (!mail.isDraft) mail.isDraft = true
+    return save(mail)
 }
 
 

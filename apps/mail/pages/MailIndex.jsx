@@ -14,7 +14,7 @@ export function MailIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
 
-    const sortDir = useRef(1)
+    const sortDir = useRef(filterBy.sortDir)
 
     useEffect(() => {
         console.log('filter by:', filterBy)
@@ -59,7 +59,14 @@ export function MailIndex() {
     function onSendMail(mail) {
         console.log(mail)
         mailService.sendMail(mail)
-            .then(mail => setMails(prevMails => ([...prevMails, mail])))
+            .then(() => loadMails())
+    }
+
+    function onSaveDraft(mail) {
+        return mailService.saveDraft(mail)
+            .then(mail => {
+                return mail
+            })
     }
 
     function onRemoveMail(ev, mailId) {
@@ -89,6 +96,7 @@ export function MailIndex() {
             })
 
     }
+
 
     function onSortBy(sort) {
         setFilterBy(prevFilter => ({ ...prevFilter, ['sortBy']: sort, ['sortDir']: sortDir.current }))
@@ -121,7 +129,7 @@ export function MailIndex() {
                     <MailList mails={mails} onReadMail={onReadMail} onRemoveMail={filterBy.status === 'trash' ? onRemoveMail : onDeleteMail} onStarMail={onStarMail} onReadMailManuely={onReadMailManuely} />
                 </section>
             </section>
-            <Outlet context={[onSendMail, filterBy, setSearchParams, searchParams]} />
+            <Outlet context={[onSendMail, filterBy, setSearchParams, searchParams, onSaveDraft, loadMails]} />
         </section>
     )
 }

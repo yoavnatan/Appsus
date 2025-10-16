@@ -33,7 +33,7 @@ export function MailFolderList({ mails, onReadMail, onSetFilterBy, filterBy }) {
                 <div className="mail-folder roboto-thin" onClick={() => handleFolderChange('starred')}>starred</div>
                 <div className="mail-folder roboto-thin" onClick={() => handleFolderChange('trash')}>Trash</div>
                 <div className="mail-folder roboto-thin" onClick={() => handleFolderChange('sent')}>Sent</div>
-                <div className="mail-folder roboto-thin">draft</div>
+                <div className="mail-folder roboto-thin" onClick={() => handleFolderChange('draft')}>draft</div>
             </nav>
 
         </section>
