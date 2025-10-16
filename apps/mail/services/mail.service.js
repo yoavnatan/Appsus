@@ -16,7 +16,8 @@ export const mailService = {
     getFilterFromSearchParams,
     readMail,
     sendMail,
-    deleteMail
+    deleteMail,
+    starMail
 }
 
 export const loggedinUser = {
@@ -381,6 +382,11 @@ function sendMail(mail) {
     return save(mail)
 }
 
-function starMail(mailId) {
-    mail
+function starMail(mail) {
+    if (!mail.isStarred) {
+        mail.isStarred = true
+        console.log(mail)
+    }
+    else mail.isStarred = !mail.isStarred
+    return save(mail)
 }
