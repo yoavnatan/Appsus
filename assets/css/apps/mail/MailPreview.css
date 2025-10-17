@@ -1,14 +1,9 @@
 .mail-preview.container {
     display: grid;
     grid-auto-flow: column;
-    grid-template-columns: 35px 150px 1fr 100px;
+    grid-template-columns: 35px 180px 1fr 100px;
     justify-items: start;
     align-items: center;
-    white-space: nowrap;
-    overflow: hidden;
-
-    /* justify-content: start;
-    align-items: center; */
 
 }
 
