@@ -12,3 +12,8 @@
 .mail-folders nav a {
     display: block;
 }
+
+
+.btn-toggle-menu {
+    display: none;
+}

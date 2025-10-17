@@ -15,6 +15,7 @@ export function MailIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
     const [sortIsShow, setSortIsShow] = useState(false)
+    const [menuIsOpen, setMenuIsOpen] = useState(false)
 
     const sortDir = useRef(filterBy.sortDir)
     const filtrerRef = useRef()
@@ -122,14 +123,20 @@ export function MailIndex() {
         setSortIsShow(prevStat => !prevStat)
     }
 
+    function onToggleMenu() {
+        setMenuIsOpen(prevState => !prevState)
+    }
+
 
     if (!mails) return <div className="loader">Loading...</div>
     console.log(mails)
     return (
         <section className="mail-index roboto-thin">
+            <div className={`main-screen ${menuIsOpen ? 'active' : ''}`} onClick={onToggleMenu}></div>
             <MailFilter onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
             <section className="mail-index inner-container">
-                <div className="aside-bar">
+                <div onClick={onToggleMenu}>menu</div>
+                <div className={`aside-bar ${menuIsOpen ? 'open' : ''}`}>
                     <Link to='/mail/compose' className="btn btn-compose roboto-bold">Compose New</Link>
                     <MailFolderList mails={mails} onReadMail={onReadMail} onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
                 </div>
