@@ -4,6 +4,7 @@ import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.servic
 import { MailList } from "../cmps/MailList.jsx"
 import { MailFilter } from "../cmps/MailFilter.jsx"
 import { MailFolderList } from "../cmps/MailFolderList.jsx"
+import { MailLabels } from "../cmps/MailLables.jsx"
 
 const { useState, useEffect, useRef } = React
 const { Link, useSearchParams, Outlet } = ReactRouterDOM
@@ -121,11 +122,11 @@ export function MailIndex() {
     if (!mails) return <div className="loader">Loading...</div>
     console.log(mails)
     return (
-        <section className="mail-index roboto-bold">
+        <section className="mail-index roboto-thin">
             <MailFilter onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
             <section className="mail-index inner-container">
                 <div className="aside-bar">
-                    <Link to='/mail/compose' className="btn btn-compose">Compose New</Link>
+                    <Link to='/mail/compose' className="btn btn-compose roboto-bold">Compose New</Link>
                     <MailFolderList mails={mails} onReadMail={onReadMail} onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
                 </div>
                 <div className="mails-container">
@@ -139,6 +140,9 @@ export function MailIndex() {
                         <button className="btn btn-sort-from" onClick={() => onSortBy('from')}>From<span className="material-symbols-outlined">
                             {filterBy.sortBy === 'from' && sortDir.current === 1 ? 'keyboard_arrow_up' : filterBy.sortBy === 'from' && 'keyboard_arrow_down'}
                         </span></button>
+                    </section>
+                    <section className="labels">
+                        <MailLabels mails={mails} onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
                     </section>
                     <MailList mails={mails} onReadMail={onReadMail} onRemoveMail={filterBy.status === 'trash' ? onRemoveMail : onDeleteMail} onStarMail={onStarMail} onReadMailManuely={onReadMailManuely} />
                 </div>

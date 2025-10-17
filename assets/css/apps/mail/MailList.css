@@ -1,7 +1,6 @@
  /* mail list */
  .mail-list.container {
-     padding-block: 1.5em;
-
+     margin: 0;
  }
 
  .mail-list .mail-item {

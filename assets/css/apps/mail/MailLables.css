@@ -1,0 +1,17 @@
+.labels-container {
+    gap: 1em;
+}
+
+.labels-container .label {
+    padding: 1em;
+    cursor: pointer;
+}
+
+.labels-container .label:hover {
+    background-color: var(--gray1);
+}
+
+.labels-container .label.active {
+    border-bottom: 3px solid var(--color1);
+    color: var(--color1)
+}
