@@ -67,7 +67,7 @@
      cursor: pointer;
      pointer-events: none;
 
-     transition: opacity .6s;
+     /* transition: opacity .6s; */
      /* width: 100%; */
      opacity: 0;
  }
@@ -75,5 +75,5 @@
  .main-screen.active {
      pointer-events: auto;
      opacity: 1;
-     /* z-index: 1; */
+     z-index: 1;
  }
