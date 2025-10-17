@@ -1,4 +1,8 @@
  /* mail index  */
+ .mail-index.inner-container {
+     display: grid;
+     grid-template-columns: auto 1fr;
+ }
 
  .mails-container {
      border-radius: 2em;
@@ -20,7 +24,6 @@
  }
 
  .aside-bar {
-     width: 250px;
      margin-top: 50px;
      margin-right: 1em;
  }

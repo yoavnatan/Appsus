@@ -123,12 +123,12 @@ export function MailIndex() {
     return (
         <section className="mail-index roboto-bold">
             <MailFilter onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
-            <section className="mail-index inner-container flex">
+            <section className="mail-index inner-container">
                 <div className="aside-bar">
                     <Link to='/mail/compose' className="btn btn-compose">Compose New</Link>
                     <MailFolderList mails={mails} onReadMail={onReadMail} onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
                 </div>
-                <section className="mails-container">
+                <div className="mails-container">
                     <section className="sorting-container">
                         <button className="btn btn-sort-date" onClick={() => onSortBy('date')}>Date<span className="material-symbols-outlined">
                             {filterBy.sortBy === 'date' && sortDir.current === 1 ? 'keyboard_arrow_up' : filterBy.sortBy === 'date' && 'keyboard_arrow_down'}
@@ -141,7 +141,7 @@ export function MailIndex() {
                         </span></button>
                     </section>
                     <MailList mails={mails} onReadMail={onReadMail} onRemoveMail={filterBy.status === 'trash' ? onRemoveMail : onDeleteMail} onStarMail={onStarMail} onReadMailManuely={onReadMailManuely} />
-                </section>
+                </div>
             </section>
             <Outlet context={[onSendMail, filterBy, setSearchParams, searchParams, onSaveDraft, loadMails, onSetMails]} />
         </section>

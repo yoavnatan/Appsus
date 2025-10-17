@@ -1,6 +1,12 @@
-.mail-preview {
+.mail-preview.container {
     display: grid;
     grid-auto-flow: column;
+    grid-template-columns: 35px 150px 1fr 100px;
+    justify-items: start;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+
     /* justify-content: start;
     align-items: center; */
 
@@ -9,6 +15,13 @@
 
 .mail-preview>*:not(:first-child) {
     flex: 1;
+}
+
+.mail-preview .body {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .mail-preview .btn-remove {}
