@@ -14,10 +14,10 @@ export function MailLabels({ filterBy, onSetFilterBy }) {
 
     return (
         <section className="labels-container flex">
-            <div className="label active" onClick={() => handleFolderChange('main')}>Main</div>
-            <div className="label" onClick={() => handleFolderChange('promoted')}>Promoted</div>
-            <div className="label" onClick={() => handleFolderChange('social')}>Social Media</div>
-            <div className="label" onClick={() => handleFolderChange('updates')}>Updates</div>
+            <div className={`label ${filterByToEdit.label === 'main' ? 'active' : ''}`} onClick={() => handleFolderChange('main')}>Main</div>
+            <div className={`label ${filterByToEdit.label === 'promoted' ? 'active' : ''}`} onClick={() => handleFolderChange('promoted')}>Promoted</div>
+            <div className={`label ${filterByToEdit.label === 'social' ? 'active' : ''}`} onClick={() => handleFolderChange('social')}>Social Media</div>
+            <div className={`label ${filterByToEdit.label === 'updates' ? 'active' : ''}`} onClick={() => handleFolderChange('updates')}>Updates</div>
         </section>
     )
 }

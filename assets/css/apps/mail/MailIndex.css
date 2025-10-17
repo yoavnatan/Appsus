@@ -10,6 +10,10 @@
      background-color: white;
  }
 
+ .mails-container .inner-container {
+     align-items: center;
+ }
+
  .mail-index.inner-container .mail-folders {
      padding: 3em 2em 0 0;
  }
@@ -32,6 +36,8 @@
      margin: 1em;
      display: flex;
      gap: 5px;
+     transition: .100s;
+     transform-origin: left;
  }
 
  .sorting-container .btn {
@@ -44,4 +50,12 @@
      padding: 0.7em;
      cursor: pointer;
      border: 1px solid var(--gray2)
+ }
+
+ .sorting-container.close {
+     scale: 0 1;
+ }
+
+ .btn-sort-toggle span {
+     color: black;
  }
