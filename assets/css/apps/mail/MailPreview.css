@@ -30,3 +30,15 @@
     justify-self: end;
     gap: 1em;
 }
+
+.preview-circle {
+    display: none;
+}
+
+.from {}
+
+.body {}
+
+.star {}
+
+.symbols {}

@@ -1,6 +1,6 @@
 const { useState, useEffect, useRef } = React
 
-export function MailFolderList({ mails, onReadMail, onSetFilterBy, filterBy }) {
+export function MailFolderList({ mails, menuIsOpen, onSetFilterBy, filterBy, mailLabels }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
 
@@ -25,6 +25,7 @@ export function MailFolderList({ mails, onReadMail, onSetFilterBy, filterBy }) {
         <section className="mail-folders container">
 
             <nav>
+                {menuIsOpen && mailLabels}
                 <div className={`mail-folder ${countURmails > 0 ? 'roboto-bold' : 'roboto-thin'}`}
                     onClick={() => handleFolderChange('inbox')}>Inbox<span>{countUnreadMails()}</span></div>
                 <div className="mail-folder roboto-thin" onClick={() => handleFolderChange('starred')}>starred</div>

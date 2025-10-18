@@ -483,8 +483,7 @@ function _createMails() {
                 labels: ['main', 'updates']
             }
         ]
-
-
+        mails.forEach(mail => mail.color = utilService.getRandomIntInclusive(1, 4))
         utilService.saveToStorage(MAIL_KEY, mails)
     }
 }
@@ -514,13 +513,15 @@ function getFilterFromSearchParams(searchParams) {
     const isStared = searchParams.get('stared') || ''
     const sortBy = searchParams.get('sortBy') || ''
     const sortDir = searchParams.get('sortDir') || ''
+    const label = searchParams.get('label') || 'main'
     return {
         txt,
         isRead,
         status,
         isStared,
         sortBy,
-        sortDir
+        sortDir,
+        label
     }
 }
 

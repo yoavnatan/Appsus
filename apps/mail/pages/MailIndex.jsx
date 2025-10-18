@@ -135,15 +135,18 @@ export function MailIndex() {
             <div className={`main-screen ${menuIsOpen ? 'active' : ''}`} onClick={onToggleMenu}></div>
             <MailFilter onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
             <section className="mail-index inner-container">
-                <div onClick={onToggleMenu}>menu</div>
+                <div className={`btn-toggle-menu ${menuIsOpen ? 'open' : ''}`} onClick={onToggleMenu}><span className="material-symbols-outlined">
+                    menu
+                </span></div>
                 <div className={`aside-bar ${menuIsOpen ? 'open' : ''}`}>
                     <Link to='/mail/compose' className="btn btn-compose roboto-bold">Compose New</Link>
-                    <MailFolderList mails={mails} onReadMail={onReadMail} onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
+                    <MailFolderList menuIsOpen={menuIsOpen} mails={mails} onReadMail={onReadMail} onSetFilterBy={onSetFilterBy} filterBy={filterBy}
+                        mailLabels={<MailLabels mails={mails} onSetFilterBy={onSetFilterBy} filterBy={filterBy} />} />
                 </div>
                 <div className="mails-container">
                     <div className="inner-container flex">
-                        <div clasName="">
-                            <span class="material-symbols-outlined btn-sort-toggle" onClick={onToggleSortOptions}>
+                        <div className="">
+                            <span className="material-symbols-outlined btn-sort-toggle" onClick={onToggleSortOptions}>
                                 swap_vert
                             </span>
                             Sort by
@@ -161,9 +164,14 @@ export function MailIndex() {
                         </section>
                     </div>
                     <section className="labels">
-                        <MailLabels mails={mails} onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
+                        <div className="labels-menu"><MailLabels mails={mails} onSetFilterBy={onSetFilterBy} filterBy={filterBy} /></div>
                     </section>
-                    <MailList mails={mails} onReadMail={onReadMail} onRemoveMail={filterBy.status === 'trash' ? onRemoveMail : onDeleteMail} onStarMail={onStarMail} onReadMailManuely={onReadMailManuely} />
+                    <MailList mails={mails}
+                        onReadMail={onReadMail}
+                        onRemoveMail={filterBy.status === 'trash' ? onRemoveMail : onDeleteMail}
+                        onStarMail={onStarMail}
+                        onReadMailManuely={onReadMailManuely}
+                    />
                 </div>
             </section>
             <Outlet context={[onSendMail, filterBy, setSearchParams, searchParams, onSaveDraft, loadMails, onSetMails]} />
