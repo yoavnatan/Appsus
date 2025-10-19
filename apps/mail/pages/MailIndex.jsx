@@ -130,7 +130,7 @@ export function MailIndex() {
             <MailFilter onToggleMenu={onToggleMenu} onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
             <section className="mail-index inner-container">
                 <div className={`aside-bar ${menuIsOpen ? 'open' : ''}`}>
-                    <Link to='/mail/compose' className="btn btn-compose roboto-bold"><span class="material-symbols-outlined">
+                    <Link to='/mail/compose' className="btn btn-compose roboto-bold"><span className="material-symbols-outlined">
                         edit
                     </span> Compose New</Link>
                     <MailFolderList mailCount={unreadMailsCount.current} menuIsOpen={menuIsOpen} mails={mails} onReadMail={onReadMail} onSetFilterBy={onSetFilterBy} filterBy={filterBy} onToggleMenu={onToggleMenu}
