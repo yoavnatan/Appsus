@@ -63,23 +63,27 @@ function query(filterBy = {}) {
                         mails = mails.filter(mail => mail.isStarred)
                         break
                     case 'draft':
+                        console.log('draft')
                         mails = mails.filter(mail => mail.isDraft && !mail.removedAt)
+                        break
                 }
 
             }
             if (filterBy.label) {
+                console.log('ok!!!')
+                console.log(mails)
                 switch (filterBy.label) {
                     case 'main':
-                        mails = mails.filter(mail => mail.labels.some(label => label === 'main'))
+                        // mails = mails.filter(mail => mail.labels.some(label => label === 'main'))
                         break
                     case 'social':
-                        mails = mails.filter(mail => mail.labels.some(label => label === 'social'))
+                        // mails = mails.filter(mail => mail.labels.some(label => label === 'social'))
                         break
                     case 'promoted':
-                        mails = mails.filter(mail => mail.labels.some(label => label === 'promoted'))
+                        // mails = mails.filter(mail => mail.labels.some(label => label === 'promoted'))
                         break
                     case 'updates':
-                        mails = mails.filter(mail => mail.labels.some(label => label === 'main'))
+                        // mails = mails.filter(mail => mail.labels.some(label => label === 'updates'))
                         break
                 }
             }

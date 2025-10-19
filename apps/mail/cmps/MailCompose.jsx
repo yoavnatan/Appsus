@@ -58,7 +58,7 @@ export function MailCompose() {
                 setMailToSend(mail)
                 return mail
             })
-            .then(loadMails)
+            .then(loadMails())
         // .then((mail) => onSetMails(mail))
         // .then(() => navigate({
         //     pathname: '/mail/compose',

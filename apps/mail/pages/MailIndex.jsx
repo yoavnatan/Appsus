@@ -33,7 +33,7 @@ export function MailIndex() {
     // useEffect(() => {
     //     filtrerRef.current = filterBy
     //     console.log(filtrerRef.current)
-    // },[filterBy])
+    // }, [filterBy])
 
     function loadMails() {
         mailService.query(filtrerRef.current)
@@ -69,6 +69,7 @@ export function MailIndex() {
     function onSaveDraft(mail) {
         return mailService.saveDraft(mail)
             .then(mail => {
+                console.log('mail', mail)
                 return mail
             })
     }
@@ -123,7 +124,6 @@ export function MailIndex() {
 
     if (!mails) return <div className="loader">Loading...</div>
     console.log(mails)
-    console.log(unreadMailsCount.current)
     return (
         <section className="mail-index roboto-thin">
             <div className={`main-screen ${menuIsOpen ? 'active' : ''}`} onClick={onToggleMenu}></div>
