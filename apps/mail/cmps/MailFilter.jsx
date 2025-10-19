@@ -2,7 +2,7 @@ import { utilService } from "../../../services/util.service.js";
 
 const { useState, useEffect, useRef } = React
 
-export function MailFilter({ filterBy, onSetFilterBy }) {
+export function MailFilter({ filterBy, onSetFilterBy, onToggleMenu }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
     const onSetFilterByDebounce = useRef(utilService.debounce(onSetFilterBy, 100)).current
@@ -41,6 +41,9 @@ export function MailFilter({ filterBy, onSetFilterBy }) {
 
     return (
         <section className="mail-filter container">
+            <div className={`btn-toggle-menu`} onClick={onToggleMenu}><span className="material-symbols-outlined">
+                menu
+            </span></div>
             <form onSubmit={onSubmitFilter}>
 
                 <input className="search-bar" onChange={handleChange} value={txt} name='txt' id='txt' type="text" placeholder="search"></input>

@@ -62,9 +62,7 @@ export function MailIndex() {
 
     function countUnreadMails() {
         let count = 0
-        mails.forEach(mail => {
-            if (!mail.isRead) count++
-        })
+        mails.forEach(mail => { if (!mail.isRead) count++ })
         return count
     }
 
@@ -133,23 +131,19 @@ export function MailIndex() {
     return (
         <section className="mail-index roboto-thin">
             <div className={`main-screen ${menuIsOpen ? 'active' : ''}`} onClick={onToggleMenu}></div>
-            <MailFilter onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
+            <MailFilter onToggleMenu={onToggleMenu} onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
             <section className="mail-index inner-container">
-                <div className={`btn-toggle-menu ${menuIsOpen ? 'open' : ''}`} onClick={onToggleMenu}><span className="material-symbols-outlined">
-                    menu
-                </span></div>
                 <div className={`aside-bar ${menuIsOpen ? 'open' : ''}`}>
                     <Link to='/mail/compose' className="btn btn-compose roboto-bold">Compose New</Link>
-                    <MailFolderList menuIsOpen={menuIsOpen} mails={mails} onReadMail={onReadMail} onSetFilterBy={onSetFilterBy} filterBy={filterBy}
-                        mailLabels={<MailLabels mails={mails} onSetFilterBy={onSetFilterBy} filterBy={filterBy} />} />
+                    <MailFolderList menuIsOpen={menuIsOpen} mails={mails} onReadMail={onReadMail} onSetFilterBy={onSetFilterBy} filterBy={filterBy} onToggleMenu={onToggleMenu}
+                        mailLabels={<MailLabels mails={mails} onSetFilterBy={onSetFilterBy} filterBy={filterBy} menuIsOpen={menuIsOpen} onToggleMenu={onToggleMenu} />} />
                 </div>
                 <div className="mails-container">
                     <div className="inner-container flex">
-                        <div className="">
+                        <div className="sorting">
                             <span className="material-symbols-outlined btn-sort-toggle" onClick={onToggleSortOptions}>
                                 swap_vert
                             </span>
-                            Sort by
                         </div>
                         <section className={`sorting-container ${sortIsShow ? 'open' : 'close'}`}>
                             <button className="btn btn-sort-date" onClick={() => onSortBy('date')}>Date<span className="material-symbols-outlined">

@@ -1,6 +1,6 @@
 const { useState, useEffect, useRef } = React
 
-export function MailFolderList({ mails, menuIsOpen, onSetFilterBy, filterBy, mailLabels }) {
+export function MailFolderList({ mails, menuIsOpen, onSetFilterBy, filterBy, mailLabels, onToggleMenu }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
 
@@ -17,6 +17,8 @@ export function MailFolderList({ mails, menuIsOpen, onSetFilterBy, filterBy, mai
 
     function handleFolderChange(folder) {
         setFilterByToEdit(prevFilter => ({ ...prevFilter, ['status']: folder }))
+        setTimeout(() => { if (menuIsOpen) onToggleMenu() }, 0)
+
     }
 
     const countURmails = countUnreadMails()
@@ -27,7 +29,7 @@ export function MailFolderList({ mails, menuIsOpen, onSetFilterBy, filterBy, mai
             <nav>
                 {menuIsOpen && mailLabels}
                 <div className={`mail-folder ${countURmails > 0 ? 'roboto-bold' : 'roboto-thin'}`}
-                    onClick={() => handleFolderChange('inbox')}>Inbox<span>{countUnreadMails()}</span></div>
+                    onClick={() => handleFolderChange('inbox')}>Inbox<span></span></div>
                 <div className="mail-folder roboto-thin" onClick={() => handleFolderChange('starred')}>starred</div>
                 <div className="mail-folder roboto-thin" onClick={() => handleFolderChange('trash')}>Trash</div>
                 <div className="mail-folder roboto-thin" onClick={() => handleFolderChange('sent')}>Sent</div>

@@ -35,10 +35,26 @@
     display: none;
 }
 
+.time {
+    grid-column: 5;
+    justify-self: end;
+    margin-inline-end: .72em;
+}
+
+.mail-item:hover .time {
+    display: none;
+}
+
 .from {}
 
 .body {}
 
 .star {}
 
-.symbols {}
+.symbols.container {
+    display: none
+}
+
+.mail-item:hover .symbols.container {
+    display: flex;
+}

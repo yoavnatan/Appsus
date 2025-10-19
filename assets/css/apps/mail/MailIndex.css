@@ -47,9 +47,29 @@
      width: 85px;
      border-radius: 2em;
      background-color: var(--bg0);
-     padding: 0.7em;
+     padding: 0.6em;
      cursor: pointer;
      border: 1px solid var(--gray2)
+ }
+
+
+ .sorting span {
+     margin-inline-start: .5em;
+     /* margin-block-start: .5em; */
+     background-color: var(--bg0);
+     color: black;
+     padding: .5em;
+     font-size: 2em;
+     border-radius: 50px;
+     cursor: pointer;
+ }
+
+ .mails-container .inner-container {
+     margin-block-start: .5em;
+ }
+
+ .sorting span:hover {
+     background-color: var(--bg5);
  }
 
  .sorting-container.close {

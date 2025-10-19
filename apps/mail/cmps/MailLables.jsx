@@ -1,6 +1,6 @@
 const { useState, useEffect, useRef } = React
 
-export function MailLabels({ filterBy, onSetFilterBy }) {
+export function MailLabels({ filterBy, onSetFilterBy, menuIsOpen, onToggleMenu }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
 
@@ -10,6 +10,8 @@ export function MailLabels({ filterBy, onSetFilterBy }) {
 
     function handleFolderChange(label) {
         setFilterByToEdit(prevFilter => ({ ...prevFilter, ['label']: label }))
+        setTimeout(() => { if (menuIsOpen) onToggleMenu() }, 0)
+
     }
 
     return (

@@ -11,7 +11,7 @@
         min-width: 40dvw;
         transform: translateX(-100%);
         background-color: var(--bg5);
-        transition: transform .6s;
+        transition: transform .3s;
         z-index: 99;
         margin-top: 0;
         padding-top: 3em;
@@ -23,14 +23,32 @@
 
     .btn-toggle-menu {
         display: block;
-        margin-inline-start: 2em;
+        margin-inline-start: 1em;
         cursor: pointer;
         color: var(--gray4);
-
+        flex: 1;
+        margin-inline-end: auto;
     }
 
     .btn-toggle-menu span {
         color: var(--gray4);
+    }
+
+    .mails-container {
+        margin-inline: .5em;
+    }
+
+    .mail-filter.container {
+        padding-inline: 2em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1em;
+    }
+
+
+    .mail-list.container {
+        padding: 0;
     }
 
     .mail-preview.container {
@@ -44,6 +62,19 @@
 
     }
 
+    .mail-filter .search-bar {
+        width: 50dvw;
+    }
+
+    .mail-filter .search-bar:focus-visible {
+        width: 50dvw;
+    }
+
+    .mail-item:hover .time {
+        display: block;
+    }
+
+
 
     .from {
         grid-row: 1;
@@ -54,6 +85,13 @@
         grid-row: 2;
         grid-column: 2;
 
+    }
+
+    .time {
+        grid-row: 1;
+        grid-column: 3/5;
+        justify-self: end;
+        margin-inline-end: .72em;
     }
 
     .star {
@@ -94,14 +132,16 @@
         width: 100%;
         flex-direction: column;
         border-bottom: 1px solid var(--gray4);
+        margin-block-end: 2em;
+        padding: 0 0 3em 0;
 
         .label {
-            padding: 0;
-            margin-bottom: 1em;
+            padding: 1em;
+
         }
-
-
     }
 
-
+    .symbols.container {
+        display: flex;
+    }
 }
