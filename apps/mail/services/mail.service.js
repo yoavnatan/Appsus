@@ -5,6 +5,7 @@ import { storageService } from '../../../services/async-storage.service.js'
 
 const MAIL_KEY = 'mailDB'
 _createMails()
+export let unreadMailsCounter
 
 export const mailService = {
     query,
@@ -20,6 +21,7 @@ export const mailService = {
     starMail,
     readManualy,
     saveDraft,
+
 }
 
 export const loggedinUser = {
@@ -27,9 +29,17 @@ export const loggedinUser = {
     fullname: 'Mahatma Appsus'
 }
 
+function countUnreadMails(mails) {
+    let mailCount = 0
+    mails.forEach(mail => { if (!mail.isRead && !mail.removedAt) mailCount++ })
+    return mailCount++
+}
+
+
 function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
+            unreadMailsCounter = countUnreadMails(mails)
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
                 mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body) || regExp.test(mail.from))
@@ -509,7 +519,7 @@ function deleteMail(mailId) {
 function getFilterFromSearchParams(searchParams) {
     const txt = searchParams.get('txt') || ''
     const isRead = searchParams.get('isRead') || ''
-    const status = searchParams.get('status') || ''
+    const status = searchParams.get('status') || 'inbox'
     const isStared = searchParams.get('stared') || ''
     const sortBy = searchParams.get('sortBy') || ''
     const sortDir = searchParams.get('sortDir') || ''

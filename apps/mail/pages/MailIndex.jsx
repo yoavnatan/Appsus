@@ -1,10 +1,12 @@
 import { mailService } from "../services/mail.service.js"
+import { unreadMailsCounter } from "../services/mail.service.js"
 import { utilService } from "../../../services/util.service.js"
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { MailList } from "../cmps/MailList.jsx"
 import { MailFilter } from "../cmps/MailFilter.jsx"
 import { MailFolderList } from "../cmps/MailFolderList.jsx"
 import { MailLabels } from "../cmps/MailLables.jsx"
+
 
 const { useState, useEffect, useRef } = React
 const { Link, useSearchParams, Outlet } = ReactRouterDOM
@@ -19,13 +21,13 @@ export function MailIndex() {
 
     const sortDir = useRef(filterBy.sortDir)
     const filtrerRef = useRef()
+    let unreadMailsCount = useRef()
 
     useEffect(() => {
-        console.log('filter by:', filterBy)
         filtrerRef.current = filterBy
         setSearchParams(utilService.cleanObject(filterBy))
         loadMails()
-
+        unreadMailsCount.current = unreadMailsCounter
     }, [filterBy])
 
     // useEffect(() => {
@@ -34,7 +36,6 @@ export function MailIndex() {
     // },[filterBy])
 
     function loadMails() {
-        console.log(filtrerRef.current)
         mailService.query(filtrerRef.current)
             .then(mails => {
                 setMails(mails)
@@ -60,14 +61,7 @@ export function MailIndex() {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterByToEdit }))
     }
 
-    function countUnreadMails() {
-        let count = 0
-        mails.forEach(mail => { if (!mail.isRead) count++ })
-        return count
-    }
-
     function onSendMail(mail) {
-        console.log(mail)
         mailService.sendMail(mail)
             .then(() => loadMails())
     }
@@ -81,6 +75,7 @@ export function MailIndex() {
 
     function onRemoveMail(ev, mailId) {
         ev.stopPropagation()
+
         mailService.remove(mailId)
             .then(() => {
                 showSuccessMsg('Mail removed')
@@ -89,8 +84,9 @@ export function MailIndex() {
             .catch(err => console.log('err', err))
     }
 
-    function onDeleteMail(ev, mailId) {
+    function onDeleteMail(ev, mailId, mail) {
         ev.stopPropagation()
+        if (!mail.isRead) unreadMailsCount.current--
         mailService.deleteMail(mailId)
             .then(() => {
                 showSuccessMsg('Mail deleted')
@@ -125,17 +121,19 @@ export function MailIndex() {
         setMenuIsOpen(prevState => !prevState)
     }
 
-
     if (!mails) return <div className="loader">Loading...</div>
     console.log(mails)
+    console.log(unreadMailsCount.current)
     return (
         <section className="mail-index roboto-thin">
             <div className={`main-screen ${menuIsOpen ? 'active' : ''}`} onClick={onToggleMenu}></div>
             <MailFilter onToggleMenu={onToggleMenu} onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
             <section className="mail-index inner-container">
                 <div className={`aside-bar ${menuIsOpen ? 'open' : ''}`}>
-                    <Link to='/mail/compose' className="btn btn-compose roboto-bold">Compose New</Link>
-                    <MailFolderList menuIsOpen={menuIsOpen} mails={mails} onReadMail={onReadMail} onSetFilterBy={onSetFilterBy} filterBy={filterBy} onToggleMenu={onToggleMenu}
+                    <Link to='/mail/compose' className="btn btn-compose roboto-bold"><span class="material-symbols-outlined">
+                        edit
+                    </span> Compose New</Link>
+                    <MailFolderList mailCount={unreadMailsCount.current} menuIsOpen={menuIsOpen} mails={mails} onReadMail={onReadMail} onSetFilterBy={onSetFilterBy} filterBy={filterBy} onToggleMenu={onToggleMenu}
                         mailLabels={<MailLabels mails={mails} onSetFilterBy={onSetFilterBy} filterBy={filterBy} menuIsOpen={menuIsOpen} onToggleMenu={onToggleMenu} />} />
                 </div>
                 <div className="mails-container">

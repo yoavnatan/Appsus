@@ -19,12 +19,20 @@
  }
 
  .btn-compose {
+     display: flex;
+     align-items: center;
      margin-top: 1em;
      margin-left: 0.5em;
      padding: 1em;
      border-radius: 0.5em;
      background-color: var(--bg02);
-     width: 145px;
+     gap: 10px;
+     width: 180px;
+ }
+
+ .btn-compose:hover {
+     box-shadow: 0 1px 3px 0 rgba(60, 64, 67, .3), 0 4px 8px 3px rgba(60, 64, 67, .15);
+     background-color: #c2e7ff;
  }
 
  .aside-bar {

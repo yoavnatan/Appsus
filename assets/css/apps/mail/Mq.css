@@ -74,6 +74,9 @@
         display: block;
     }
 
+    .mails-container .inner-container {
+        margin-bottom: .5em;
+    }
 
 
     .from {

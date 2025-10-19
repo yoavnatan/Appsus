@@ -7,7 +7,6 @@ export function MailPreview({ mail, onRemoveMail, onStarMail, onClickManualyRead
     const day = 1000 * 24 * 60 * 60
     if (date - day > 1) date = new Intl.DateTimeFormat('en-Us', { month: 'short', day: 'numeric' }).format(date)
     else date = date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
-    console.log(date)
     return (
         <article className={`mail-preview container ${!isRead ? 'unread' : 'read'}`}>
             <span className={`material-symbols-outlined star ${isStarred ? 'starred' : ''}`} onClick={(event) => onStarMail(event, mail)}>
@@ -22,7 +21,7 @@ export function MailPreview({ mail, onRemoveMail, onStarMail, onClickManualyRead
                 <span className="material-symbols-outlined" onClick={(event) => onClickManualyRead(event, mail)}>
                     {!isRead ? 'mark_email_unread' : 'drafts'}
                 </span>
-                <span className="material-symbols-outlined btn-remove" onClick={(event) => onRemoveMail(event, id)}>
+                <span className="material-symbols-outlined btn-remove" onClick={(event) => onRemoveMail(event, id, mail)}>
                     delete
                 </span>
             </div>

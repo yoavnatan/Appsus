@@ -5,6 +5,9 @@
 .labels-container .label {
     padding: 1em;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: .2em;
 }
 
 .labels-container .label:hover {
@@ -13,5 +16,9 @@
 
 .labels-container .label.active {
     border-bottom: 3px solid var(--color1);
+    color: var(--color1)
+}
+
+.active .material-symbols-outlined {
     color: var(--color1)
 }

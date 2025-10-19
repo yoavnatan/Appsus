@@ -3,10 +3,17 @@
     padding-block: 0.5em;
     border-radius: 0 2em 2em 0;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: .2em;
 }
 
-.mail-folders .mail-folder:hover {
+.mail-folders .mail-folder.active {
     background-color: var(--bg1);
+}
+
+.mail-folders .mail-folder:hover:not(.active) {
+    background-color: var(--bg6);
 }
 
 .mail-folders nav a {
@@ -16,4 +23,8 @@
 
 .btn-toggle-menu {
     display: none;
+}
+
+.mail-counter {
+    margin-inline-start: auto;
 }
