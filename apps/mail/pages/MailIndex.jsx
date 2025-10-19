@@ -18,6 +18,7 @@ export function MailIndex() {
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
     const [sortIsShow, setSortIsShow] = useState(false)
     const [menuIsOpen, setMenuIsOpen] = useState(false)
+    const [isReadMail, setIsReadMail] = useState(false)
 
     const sortDir = useRef(filterBy.sortDir)
     const filtrerRef = useRef()
@@ -47,12 +48,17 @@ export function MailIndex() {
     }
 
     function onReadMail(mail) {
+        if (!mail.isRead) unreadMailsCount.current--
         mailService.readMail(mail)
-            .then(() => loadMails())
+            .then(() => {
+                loadMails()
+            })
 
     }
 
     function onReadMailManuely(mail) {
+        if (!mail.isRead) unreadMailsCount.current--
+        else if (mail.isRead) unreadMailsCount.current++
         mailService.readManualy(mail)
             .then(() => loadMails())
     }
@@ -122,9 +128,13 @@ export function MailIndex() {
         setMenuIsOpen(prevState => !prevState)
     }
 
-    if (!mails) return <div className="loader">Loading...</div>
+
+
+    if (!mails && !isReadMail) return <div className="loader">Loading...</div>
     console.log(mails)
+
     return (
+
         <section className="mail-index roboto-thin">
             <div className={`main-screen ${menuIsOpen ? 'active' : ''}`} onClick={onToggleMenu}></div>
             <MailFilter onToggleMenu={onToggleMenu} onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
@@ -136,7 +146,8 @@ export function MailIndex() {
                     <MailFolderList mailCount={unreadMailsCount.current} menuIsOpen={menuIsOpen} mails={mails} onReadMail={onReadMail} onSetFilterBy={onSetFilterBy} filterBy={filterBy} onToggleMenu={onToggleMenu}
                         mailLabels={<MailLabels mails={mails} onSetFilterBy={onSetFilterBy} filterBy={filterBy} menuIsOpen={menuIsOpen} onToggleMenu={onToggleMenu} />} />
                 </div>
-                <div className="mails-container">
+                {isReadMail && <Outlet context={[setIsReadMail]} />}
+                {!isReadMail && <div className="mails-container">
                     <div className="inner-container flex">
                         <div className="sorting">
                             <span className="material-symbols-outlined btn-sort-toggle" onClick={onToggleSortOptions}>
@@ -163,10 +174,11 @@ export function MailIndex() {
                         onRemoveMail={filterBy.status === 'trash' ? onRemoveMail : onDeleteMail}
                         onStarMail={onStarMail}
                         onReadMailManuely={onReadMailManuely}
+                        setIsReadMail={setIsReadMail}
                     />
-                </div>
+                </div>}
             </section>
-            <Outlet context={[onSendMail, filterBy, setSearchParams, searchParams, onSaveDraft, loadMails, onSetMails]} />
+            {!isReadMail && <Outlet context={[onSendMail, filterBy, setSearchParams, searchParams, onSaveDraft, loadMails, onSetMails]} />}
         </section>
     )
 }

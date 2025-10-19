@@ -2,7 +2,7 @@ const { Link, useNavigate } = ReactRouterDOM
 
 import { MailPreview } from "./MailPreview.jsx"
 
-export function MailList({ mails, onReadMail, onRemoveMail, onReadMailManuely, onStarMail }) {
+export function MailList({ mails, onReadMail, onRemoveMail, onReadMailManuely, onStarMail, setIsReadMail }) {
 
     const navigate = useNavigate()
 
@@ -13,6 +13,7 @@ export function MailList({ mails, onReadMail, onRemoveMail, onReadMailManuely, o
         }
         else {
             navigate(`/mail/${mail.id}`)
+            setIsReadMail(true)
             onReadMail(mail)
         }
     }
@@ -29,7 +30,7 @@ export function MailList({ mails, onReadMail, onRemoveMail, onReadMailManuely, o
             {mails.map(mail => (
                 <li className={`mail-item ${!mail.isRead ? 'roboto-bold unread' : 'roboto-thin read'}`} key={mail.id}>
                     {/* <Link to={`/mail/${mail.id}`} onClick={() => onReadMail(mail)} ><MailPreview mail={mail} onRemoveMail={onRemoveMail} /></Link> */}
-                    <div onClick={() => onClickMail(mail)} ><MailPreview mail={mail} onRemoveMail={onRemoveMail} onStarMail={onStarMail} onClickManualyRead={onClickManualyRead} /></div>
+                    <div onClick={() => onClickMail(mail)} ><MailPreview mail={mail} onRemoveMail={onRemoveMail} onStarMail={onStarMail} onClickManualyRead={onClickManualyRead} setIsReadMail={setIsReadMail} /></div>
                 </li>
             ))}
         </ul>
