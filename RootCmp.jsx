@@ -11,6 +11,7 @@ import { MailCompose } from './apps/mail/cmps/MailCompose.jsx'
 import { MailFolderList } from './apps/mail/cmps/MailFolderList.jsx'
 import { Inbox } from './apps/mail/cmps/Inbox.jsx'
 import { NoteIndex } from './apps/note/pages/NoteIndex.jsx'
+import { AddNote } from './apps/note/cmps/AddNote.jsx'
 
 export function RootCmp() {
     return <Router>
@@ -24,6 +25,10 @@ export function RootCmp() {
                     <Route path="/mail/:mailId" element={<MailDetails />} />
                 </Route>
                 <Route path="/note" element={<NoteIndex />} />
+                <Route path="/add-note" element={<AddNote />} />
+                <Route path="/note/:noteId" element={<AddNote />} />
+                {/* <Route path="/note//details/:note.id" element={<AddNote />} /> */}
+
             </Routes>
             <UserMsg />
         </section>
