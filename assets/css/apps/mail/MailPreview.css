@@ -70,7 +70,7 @@
     transition: border-radius .3s;
 }
 
-.material-symbols-outlined:hover {
+.mail-item .material-symbols-outlined:hover {
     outline: .2em var(--bg6) solid;
     background-color: var(--bg6);
     /* padding: .2em */
