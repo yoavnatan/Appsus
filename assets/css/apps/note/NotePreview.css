@@ -23,8 +23,10 @@
     padding: 0;
 }
 
-.material-symbols-outlined.remove:hover {
-    scale: 1.2;
+
+.note-preview .material-symbols-outlined:hover {
+    scale: 1.1;
     cursor: pointer;
+    border-radius: 50%;
     background-color: none;
 }
