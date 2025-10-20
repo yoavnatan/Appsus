@@ -69,21 +69,19 @@ function query(filterBy = {}) {
                 }
 
             }
-            if (filterBy.label) {
-                console.log('ok!!!')
-                console.log(mails)
+            if (filterBy.label && filterBy.status === 'inbox') {
                 switch (filterBy.label) {
                     case 'main':
-                        // mails = mails.filter(mail => mail.labels.some(label => label === 'main'))
+                        mails = mails.filter(mail => mail.labels.some(label => label === 'main'))
                         break
                     case 'social':
-                        // mails = mails.filter(mail => mail.labels.some(label => label === 'social'))
+                        mails = mails.filter(mail => mail.labels.some(label => label === 'social'))
                         break
                     case 'promoted':
-                        // mails = mails.filter(mail => mail.labels.some(label => label === 'promoted'))
+                        mails = mails.filter(mail => mail.labels.some(label => label === 'promoted'))
                         break
                     case 'updates':
-                        // mails = mails.filter(mail => mail.labels.some(label => label === 'updates'))
+                        mails = mails.filter(mail => mail.labels.some(label => label === 'updates'))
                         break
                 }
             }

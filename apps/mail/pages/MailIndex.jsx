@@ -167,7 +167,7 @@ export function MailIndex() {
                         </section>
                     </div>
                     <section className="labels">
-                        <div className="labels-menu"><MailLabels mails={mails} onSetFilterBy={onSetFilterBy} filterBy={filterBy} /></div>
+                        {filterBy.status === 'inbox' && <div className="labels-menu"><MailLabels mails={mails} onSetFilterBy={onSetFilterBy} filterBy={filterBy} /></div>}
                     </section>
                     <MailList mails={mails}
                         onReadMail={onReadMail}
