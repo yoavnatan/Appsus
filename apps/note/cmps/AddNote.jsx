@@ -61,6 +61,7 @@ export function AddNote({ isAddNote, onFocus, onSetIsAddNote, saveNote }) {
     function onSaveNote(ev) {
         ev.preventDefault()
         saveNote( noteToAdd)
+        onSetIsAddNote()
     }
 
     if (!isAddNote && !noteId) return (

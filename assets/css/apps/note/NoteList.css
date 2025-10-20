@@ -2,8 +2,10 @@
 
 
  .note-list {
-     display: grid;
-     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+
+     column-count: 4;
+     column-gap: 16px;  
+     padding: 0 20px;
      gap: 16px;
      list-style: none;
      padding: 0;
@@ -27,4 +29,3 @@
      background-color: var(--gray1);
      border-radius: 4px;
  }
-
