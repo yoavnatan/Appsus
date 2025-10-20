@@ -72,7 +72,7 @@ export function NoteIndex() {
     }
 
     return <section
-        className="main-container">
+        className="main-container roboto-thin">
         <section className="note-header">
             <h1>My Notes</h1>
         </section>
