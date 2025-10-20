@@ -43,6 +43,30 @@ export function NoteIndex() {
             })
     }
 
+
+
+    function saveNote( noteToAdd) {
+
+       
+    
+        
+        noteService.save(noteToAdd)
+            .then((savedNote) => {
+
+                loadNotes()
+
+
+                showSuccessMsg('note saved successfully!')
+      
+            })
+            .catch(err => {
+                console.log('Cannot save note!:', err)
+                showErrorMsg('Cannot save note!')
+            })
+    }
+
+
+
     function onSetIsAddNote() {
         setIsAddNote(false)
     }
@@ -52,12 +76,13 @@ export function NoteIndex() {
         <section className="note-header">
             <h1>My Notes</h1>
         </section>
+
         <section className="create-note">
-            <AddNote onFocus={() => setIsAddNote(true)} isAddNote={isAddNote} onSetIsAddNote={onSetIsAddNote} />
+            <AddNote onFocus={() => setIsAddNote(true)} isAddNote={isAddNote} onSetIsAddNote={onSetIsAddNote} saveNote={saveNote}/>
 
         </section>
         <section className="notes-container">
-            <NoteList notes={notes} onRemoveNote={onRemoveNote}  />
+            <NoteList notes={notes} onRemoveNote={onRemoveNote} saveNote={saveNote}  />
         </section>
     </section>
 }

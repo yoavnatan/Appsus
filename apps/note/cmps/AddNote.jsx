@@ -7,7 +7,7 @@ import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.servic
 const { useNavigate, useParams, Link } = ReactRouterDOM
 const { useState, useEffect, useRef } = React
 
-export function AddNote({ isAddNote, onFocus, onSetIsAddNote }) {
+export function AddNote({ isAddNote, onFocus, onSetIsAddNote, saveNote }) {
 
     const [noteToAdd, setNoteToAdd] = useState(noteService.getEmptyNote())
     const [isLoading, setIsLoading] = useState(false)
@@ -58,23 +58,10 @@ export function AddNote({ isAddNote, onFocus, onSetIsAddNote }) {
     }
 
 
-
     function onSaveNote(ev) {
         ev.preventDefault()
-        noteService.save(noteToAdd)
-            .then(() => {
-                showSuccessMsg('note saved successfully!')
-                if (noteId) {
-                    navigate('/note')
-                    onSetIsAddNote()
-                }
-            })
-            .catch(err => {
-                console.log('Cannot save note!:', err)
-                showErrorMsg('Cannot save note!')
-            })
+        saveNote( noteToAdd)
     }
-
 
     if (!isAddNote && !noteId) return (
         <section className="create-note-preview">
@@ -91,7 +78,7 @@ export function AddNote({ isAddNote, onFocus, onSetIsAddNote }) {
     if (isLoading) return <div> Loading...</div>
 
     const { title, txt } = noteToAdd.info ? noteToAdd.info : noteToAdd
-    console.log('noteToAdd:', noteToAdd)
+
     return (
         <section className="create-note-modal" >
             <h1>{noteId ? 'Edit' : 'Add'} note</h1>

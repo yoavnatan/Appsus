@@ -4,7 +4,7 @@ import {NotePreview} from './NotePreview.jsx'
 
 
 
-export function NoteList({notes, onRemoveNote}) {
+export function NoteList({notes, onRemoveNote, saveNote}) {
 
  if (!notes || !notes.length) return <h2>No notes to show...</h2>
 
@@ -16,9 +16,9 @@ export function NoteList({notes, onRemoveNote}) {
 
     return (
         <ul className="note-list">
-            {notes.map(note => (
-                <li key={note.id}>
-                    <NotePreview note={note} />
+            {notes.map((note,num) => (
+                <li key={note.id} className={"note-preview-container" + num}>
+                    <NotePreview note={note} noteNum={num} saveNote={saveNote} />
                     <section className="note-actions">
                         <button onClick={() => onRemoveNote(note.id)}>
                             Remove

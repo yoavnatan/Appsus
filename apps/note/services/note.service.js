@@ -41,6 +41,7 @@ function remove(noteId) {
 
 function save(note) {
     if (note.id) {
+        
         return storageService.put(NOTE_KEY, note)
     } else {      
         const { txt, title } = note.info

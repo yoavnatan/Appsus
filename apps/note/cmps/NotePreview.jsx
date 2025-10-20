@@ -1,8 +1,72 @@
-export function NotePreview({ note }) {
+
+
+
+const { useState, useEffect, useRef } = React
+
+
+export function NotePreview({ note, saveNote }) {
+
+    const [noteToUpdate, setNoteToUpdate] = useState(note)
+
+
+    const [selectedColor, setSelectedColor] = useState(note.style.backgroundColor)
+
+    function handleChange({ target }) {
+        const field = target.name
+        let value = target.value
+
+        
+
+        switch (target.type) {
+            case 'range':
+                value = +value
+                break
+
+            case 'checkbox':
+                value = target.checked
+                break
+            case 'color':
+               setSelectedColor(value)
+                break
+
+            case 'text':
+            case 'textarea':
+
+            default:
+                value = target.value
+                break
+
+        }
+
+    }
+
+    function onChangeBackgroundColor(color) {
+        const noteToUpdate = {
+            ...note,
+            style: {
+                ...note.style,
+                backgroundColor: color
+            }
+        }
+
+        
+        saveNote( noteToUpdate)
+       
+    }
+
+    function onBlur(){
+
+        
+      onChangeBackgroundColor(selectedColor)
+        
+    }
+
+
     return (
-        <div className="note-preview">
+        <div className="note-preview" style={{ backgroundColor: note.style.backgroundColor }}>
             <h3>{note.info.title}</h3>
             <p>{note.info.txt}</p>
+            <input onChange={handleChange} type="color" name="backgroundColor" value={selectedColor} onBlur={onBlur} ></input>
         </div>
     )
 }
