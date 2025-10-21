@@ -11,18 +11,17 @@ export function AddNote({ isAddNote, onFocus, onSetIsAddNote, saveNote }) {
 
     const [noteToAdd, setNoteToAdd] = useState(noteService.getEmptyNote())
     const [isLoading, setIsLoading] = useState(false)
-    const { noteId } = useParams()
     const navigate = useNavigate()
 
 
     useEffect(() => {
-        if (noteId) loadnote()
+        loadnote()
     }, [])
 
 
     function loadnote() {
         setIsLoading(true)
-        noteService.get(noteId)
+        noteService.get(noteToAdd.id)
             .then(note => setNoteToAdd(note))
             .catch(err => console.log('err:', err))
             .finally(() => setIsLoading(false))
@@ -60,11 +59,11 @@ export function AddNote({ isAddNote, onFocus, onSetIsAddNote, saveNote }) {
 
     function onSaveNote(ev) {
         ev.preventDefault()
-        saveNote( noteToAdd)
+        saveNote(noteToAdd)
         onSetIsAddNote()
     }
 
-    if (!isAddNote && !noteId) return (
+    if (!isAddNote) return (
         <section className="create-note-preview">
             <input
                 type="text"
@@ -78,11 +77,11 @@ export function AddNote({ isAddNote, onFocus, onSetIsAddNote, saveNote }) {
     )
     if (isLoading) return <div> Loading...</div>
 
-    const { title, txt } = noteToAdd.info ? noteToAdd.info : noteToAdd
-
+    const { title, txt } = noteToAdd
+    console.log(noteToAdd)
     return (
         <section className="create-note-modal" >
-            <h1>{noteId ? 'Edit' : 'Add'} note</h1>
+            <h1>note</h1>
             <form onSubmit={onSaveNote} className="note-form">
                 <input
                     value={title}
@@ -91,7 +90,7 @@ export function AddNote({ isAddNote, onFocus, onSetIsAddNote, saveNote }) {
                     name="title"
                     placeholder="Title"
                     className="note-title"
-                    id="note-title" s
+                    id="note-title"
                 />
 
                 <textarea

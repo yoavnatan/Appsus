@@ -1,20 +1,16 @@
-import { NoteModal } from "../NoteModal.jsx"
+import { NoteModal } from "./NoteModal.jsx"
 
-
-const { Link } = ReactRouterDOM
 const { useState, useEffect, useRef } = React
 
 
-export function NotePreview({ note, saveNote, onRemoveNote }) {
+export function NotePreview({ note, saveNote, onRemoveNote, onSelectNote }) {
 
-    const [isShowDetails, setIsShowDetails] = useState(false)
+    // const [isShowDetails, setIsShowDetails] = useState(false)
     const [selectedColor, setSelectedColor] = useState(note.style.backgroundColor)
 
     function handleChange({ target }) {
         const field = target.name
         let value = target.value
-
-
 
         switch (target.type) {
             case 'range':
@@ -47,34 +43,37 @@ export function NotePreview({ note, saveNote, onRemoveNote }) {
                 backgroundColor: color
             }
         }
-
-
         saveNote(noteToUpdate)
-
     }
 
     function onBlur() {
-
-
         onChangeBackgroundColor(selectedColor)
-
     }
 
 
-    return (
-        <div className="note-preview" style={{ backgroundColor: note.style.backgroundColor }} onClick={() => setIsShowDetails(!isShowDetails)}>
+    return (  
+        <div className="note-preview" style={{ backgroundColor: note.style.backgroundColor }} onClick={() => onSelectNote(note) }>
             <h3>{note.info.title}</h3>
             <p>{note.info.txt}</p>
             <section className="note-actions">
-                <span className="material-symbols-outlined">
-                    edit
+                <span className="material-symbols-outlined"
+                onClick={(ev) => {
+                        ev.stopPropagation()
+                        onRemoveNote(note.id)
+                    }}>
+                    delete
                 </span>
-                <span className="material-symbols-outlined remove" onClick={() => onRemoveNote(note.id)}>
-                    remove
-                </span>
-                <input onChange={handleChange} type="color" name="backgroundColor" value={selectedColor} onBlur={onBlur} ></input>
+
+                <input
+                    onClick={(ev) => ev.stopPropagation()}
+                    onChange={handleChange}
+                    type="color"
+                    name="backgroundColor"
+                    value={selectedColor}
+                    onBlur={onBlur}
+                />
+
             </section>
-            {isShowDetails && <NoteModal note={note} onRemoveNote={onRemoveNote} saveNote={saveNote} isShowDetails={isShowDetails}  onClose={() => setIsShowDetails(false)}/>}
         </div>
     )
 }

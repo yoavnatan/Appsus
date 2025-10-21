@@ -3,18 +3,18 @@ import { noteService } from "../services/note.service.js"
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { NoteList } from "../cmps/NoteList.jsx"
 import { NoteFilter } from "../cmps/NoteFilter.jsx"
-import { NoteTxt } from "../cmps/NoteModal.jsx.jsx"
+import { NoteModal } from "../cmps/NoteModal.jsx"
 import { AddNote } from "../cmps/AddNote.jsx"
+
 
 const { useState, useEffect, useRef } = React
 const { useNavigate, Link, useSearchParams, Outlet } = ReactRouterDOM
-
-
 
 export function NoteIndex() {
 
     const [notes, setNotes] = useState(null)
     const [isAddNote, setIsAddNote] = useState(false)
+    const [selectedNote, setSelectedNote] = useState(null)
 
     useEffect(() => {
         if (!isAddNote) loadNotes()
@@ -57,25 +57,37 @@ export function NoteIndex() {
             })
     }
 
+    function toggle() {
+        setIsShowModal(!selectedNote)
+    }
+
 
 
     function onSetIsAddNote() {
         setIsAddNote(false)
     }
 
-    return <section
-        className="main-container roboto-thin">
-        <section className="note-header">
-            <h1>My Notes</h1>
-        </section>
+    function onSelectNote(note) {
+        setSelectedNote(note)
+    }
 
-        <section className="create-note">
-            <AddNote onFocus={() => setIsAddNote(true)} isAddNote={isAddNote} onSetIsAddNote={onSetIsAddNote} saveNote={saveNote} />
+    return <React.Fragment>
+        <section
+            className="main-container roboto-thin">
+            <section className="note-header">
+                <h1>My Notes</h1>
+            </section>
 
+            <section className="create-note">
+                <AddNote onFocus={() => setIsAddNote(true)} isAddNote={isAddNote} onSetIsAddNote={onSetIsAddNote} saveNote={saveNote} />
+
+            </section>
+            <section className="notes-container">
+                <NoteList notes={notes} onRemoveNote={onRemoveNote} saveNote={saveNote} onSelectNote={onSelectNote} />
+            </section>
         </section>
-        <section className="notes-container">
-            <NoteList notes={notes} onRemoveNote={onRemoveNote} saveNote={saveNote} />
-        </section>
-    </section>
+        <button onClick={() => toggle()}></button>
+        {selectedNote && <NoteModal note={selectedNote} onRemoveNote={onRemoveNote} saveNote={saveNote} onClose={() => setSelectedNote(null)} />}
+    </React.Fragment>
 
 }
