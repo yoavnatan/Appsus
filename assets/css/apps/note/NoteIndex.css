@@ -1,25 +1,28 @@
  /* note index */
 
-.main-container {
-      display: grid;
+
+ 
+
+ .main-container {
+     display: grid;
      grid-template-columns: repeat(minmax(250px, 1fr));
      gap: 10px;
      padding: 0 20px;
-     break-inside: auto; 
- } 
-
- .create-note {
-    display: grid;
-    align-content: center;
-    margin-top: 1rem;   
+     break-inside: auto;
  }
 
-.create-note button {
-    cursor: pointer;
-    font-family: 'Roboto', sans-serif;
-    padding: 8px 16px;
-    border: none;
-    background-color: var(--gray1);
-    border-radius: 4px;
-    margin-top: 1rem;
-} 
+ .create-note {
+     display: grid;
+     align-content: center;
+     margin-top: 1rem;
+ }
+
+ .create-note button {
+     cursor: pointer;
+     font-family: 'Roboto', sans-serif;
+     padding: 8px 16px;
+     border: none;
+     background-color: var(--gray1);
+     border-radius: 4px;
+     margin-top: 1rem;
+ }

@@ -1,4 +1,4 @@
-import { NoteTxt } from "./NoteTxt.jsx"
+import { NoteModal } from "../NoteModal.jsx"
 
 
 const { Link } = ReactRouterDOM
@@ -74,7 +74,7 @@ export function NotePreview({ note, saveNote, onRemoveNote }) {
                 </span>
                 <input onChange={handleChange} type="color" name="backgroundColor" value={selectedColor} onBlur={onBlur} ></input>
             </section>
-            {isShowDetails && <NoteTxt note={note} onRemoveNote={onRemoveNote} saveNote={saveNote} onClose={() => setIsShowDetails(false)}/>}
+            {isShowDetails && <NoteModal note={note} onRemoveNote={onRemoveNote} saveNote={saveNote} isShowDetails={isShowDetails}  onClose={() => setIsShowDetails(false)}/>}
         </div>
     )
 }

@@ -3,7 +3,7 @@ import { noteService } from "../services/note.service.js"
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { NoteList } from "../cmps/NoteList.jsx"
 import { NoteFilter } from "../cmps/NoteFilter.jsx"
-import { NoteTxt } from "../cmps/NoteTxt.jsx"
+import { NoteTxt } from "../cmps/NoteModal.jsx.jsx"
 import { AddNote } from "../cmps/AddNote.jsx"
 
 const { useState, useEffect, useRef } = React
@@ -45,19 +45,11 @@ export function NoteIndex() {
 
 
 
-    function saveNote( noteToAdd) {
-
-       
-    
-        
+    function saveNote(noteToAdd) {
         noteService.save(noteToAdd)
             .then((savedNote) => {
-
                 loadNotes()
-
-
                 showSuccessMsg('note saved successfully!')
-      
             })
             .catch(err => {
                 console.log('Cannot save note!:', err)
@@ -78,11 +70,12 @@ export function NoteIndex() {
         </section>
 
         <section className="create-note">
-            <AddNote onFocus={() => setIsAddNote(true)} isAddNote={isAddNote} onSetIsAddNote={onSetIsAddNote} saveNote={saveNote}/>
+            <AddNote onFocus={() => setIsAddNote(true)} isAddNote={isAddNote} onSetIsAddNote={onSetIsAddNote} saveNote={saveNote} />
 
         </section>
         <section className="notes-container">
-            <NoteList notes={notes} onRemoveNote={onRemoveNote} saveNote={saveNote}  />
+            <NoteList notes={notes} onRemoveNote={onRemoveNote} saveNote={saveNote} />
         </section>
     </section>
+
 }
