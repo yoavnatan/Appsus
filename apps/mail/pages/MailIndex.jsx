@@ -110,19 +110,11 @@ export function MailIndex() {
 
     }
 
-    function onSortBy(sort) {
-        setFilterBy(prevFilter => ({ ...prevFilter, ['sortBy']: sort, ['sortDir']: sortDir.current }))
-        sort === filterBy.sortBy ? sortDir.current *= -1 : sortDir.current = 1
-        console.log(filterBy)
-    }
-
     function onSetMails(mail) {
         setMails(prevMails => [...prevMails, mail])
     }
 
-    function onToggleSortOptions() {
-        setSortIsShow(prevStat => !prevStat)
-    }
+
 
     function onToggleMenu() {
         setMenuIsOpen(prevState => !prevState)
@@ -148,24 +140,7 @@ export function MailIndex() {
                 </div>
                 {isReadMail && <Outlet context={[setIsReadMail]} />}
                 {!isReadMail && <div className="mails-container">
-                    <div className="inner-container flex">
-                        <div className="sorting">
-                            <span className="material-symbols-outlined btn-sort-toggle" onClick={onToggleSortOptions}>
-                                swap_vert
-                            </span>
-                        </div>
-                        <section className={`sorting-container ${sortIsShow ? 'open' : 'close'}`}>
-                            <button className="btn btn-sort-date" onClick={() => onSortBy('date')}>Date<span className="material-symbols-outlined">
-                                {filterBy.sortBy === 'date' && sortDir.current === 1 ? 'keyboard_arrow_up' : filterBy.sortBy === 'date' && 'keyboard_arrow_down'}
-                            </span></button>
-                            <button className="btn btn-sort-title" onClick={() => onSortBy('title')}>Title<span className="material-symbols-outlined">
-                                {filterBy.sortBy === 'title' && sortDir.current === 1 ? 'keyboard_arrow_up' : filterBy.sortBy === 'title' && 'keyboard_arrow_down'}
-                            </span></button>
-                            <button className="btn btn-sort-from" onClick={() => onSortBy('from')}>From<span className="material-symbols-outlined">
-                                {filterBy.sortBy === 'from' && sortDir.current === 1 ? 'keyboard_arrow_up' : filterBy.sortBy === 'from' && 'keyboard_arrow_down'}
-                            </span></button>
-                        </section>
-                    </div>
+                    <MailSort setFilterBy={setFilterBy} filterBy={filterBy} setSortIsShow={setSortIsShow} sortIsShow={sortIsShow} />
                     <section className="labels">
                         {filterBy.status === 'inbox' && <div className="labels-menu"><MailLabels mails={mails} onSetFilterBy={onSetFilterBy} filterBy={filterBy} /></div>}
                     </section>
@@ -180,6 +155,43 @@ export function MailIndex() {
             </section>
             {!isReadMail && <Outlet context={[onSendMail, filterBy, setSearchParams, searchParams, onSaveDraft, loadMails, onSetMails]} />}
         </section>
+    )
+}
+
+
+// Sorting Component: //
+
+function MailSort({ filterBy, setFilterBy, setSortIsShow, sortIsShow }) {
+
+    function onToggleSortOptions() {
+        setSortIsShow(prevStat => !prevStat)
+    }
+
+    function onSortBy(sort) {
+        setFilterBy(prevFilter => ({ ...prevFilter, ['sortBy']: sort, ['sortDir']: sortDir.current }))
+        sort === filterBy.sortBy ? sortDir.current *= -1 : sortDir.current = 1
+        console.log(filterBy)
+    }
+
+    return (
+        <div className="inner-container flex">
+            <div className="sorting">
+                <span className="material-symbols-outlined btn-sort-toggle" onClick={onToggleSortOptions}>
+                    swap_vert
+                </span>
+            </div>
+            <section className={`sorting-container ${sortIsShow ? 'open' : 'close'}`}>
+                <button className="btn btn-sort-date" onClick={() => onSortBy('date')}>Date<span className="material-symbols-outlined">
+                    {filterBy.sortBy === 'date' && sortDir.current === 1 ? 'keyboard_arrow_up' : filterBy.sortBy === 'date' && 'keyboard_arrow_down'}
+                </span></button>
+                <button className="btn btn-sort-title" onClick={() => onSortBy('title')}>Title<span className="material-symbols-outlined">
+                    {filterBy.sortBy === 'title' && sortDir.current === 1 ? 'keyboard_arrow_up' : filterBy.sortBy === 'title' && 'keyboard_arrow_down'}
+                </span></button>
+                <button className="btn btn-sort-from" onClick={() => onSortBy('from')}>From<span className="material-symbols-outlined">
+                    {filterBy.sortBy === 'from' && sortDir.current === 1 ? 'keyboard_arrow_up' : filterBy.sortBy === 'from' && 'keyboard_arrow_down'}
+                </span></button>
+            </section>
+        </div>
     )
 }
 
