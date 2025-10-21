@@ -529,6 +529,9 @@ function _createMails() {
     }
 }
 
+function getMailDate(mail) {
+
+}
 
 function _createMail(vendor, speed = 250) {
     const mail = getEmptyMail(vendor, speed)
