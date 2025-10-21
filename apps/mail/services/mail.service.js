@@ -21,6 +21,7 @@ export const mailService = {
     starMail,
     readManualy,
     saveDraft,
+    getMailDate
 
 }
 
@@ -104,7 +105,7 @@ function query(filterBy = {}) {
 
 function get(mailId) {
     return storageService.get(MAIL_KEY, mailId)
-    // .then(_setNextPrevMailId)
+        .then(_setNextPrevMailId)
 }
 
 function remove(mailId) {
@@ -530,9 +531,37 @@ function _createMails() {
 }
 
 function getMailDate(mail) {
+    let date
+    const { sentAt, createdAt } = mail
+    if (sentAt) {
+        date = new Date(sentAt)
+        const day = 1000 * 24 * 60 * 60
+        if (date - day > 1) date = new Intl.DateTimeFormat('en-Us', { month: 'short', day: 'numeric' }).format(date)
+        else date = date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+    }
 
+    if (createdAt) {
+        date = new Date(createdAt)
+        const day = 1000 * 24 * 60 * 60
+        if (date - day > 1) date = new Intl.DateTimeFormat('en-Us', { month: 'short', day: 'numeric' }).format(date)
+        else date = date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+    }
+
+    mail.date = date
+
+    return mail
 }
 
+function _setNextPrevMailId(mail) {
+    return query().then((mails) => {
+        const mailIdx = mails.findIndex((currMail) => currMail.id === mail.id)
+        const nextMail = mails[mailIdx + 1] ? mails[mailIdx + 1] : mails[0]
+        const prevMail = mails[mailIdx - 1] ? mails[mailIdx - 1] : mails[mails.length - 1]
+        mail.nextMailId = nextMail.id
+        mail.prevMailId = prevMail.id
+        return mail
+    })
+}
 function _createMail(vendor, speed = 250) {
     const mail = getEmptyMail(vendor, speed)
     mail.id = makeId()
@@ -572,19 +601,6 @@ function getFilterFromSearchParams(searchParams) {
 function saveDraft(mail) {
     if (!mail.isDraft) mail.isDraft = true
     return save(mail)
-}
-
-
-
-function _setNextPrevMailId(mail) {
-    return query().then((mails) => {
-        const mailIdx = mails.findIndex((currMAil) => currMAil.id === mail.id)
-        const nextCar = mails[mailIdx + 1] ? mails[mailIdx + 1] : mails[0]
-        const prevCar = mails[mailIdx - 1] ? mails[mailIdx - 1] : mails[mails.length - 1]
-        car.nextmailId = nextCar.id
-        car.prevmailId = prevCar.id
-        return car
-    })
 }
 
 

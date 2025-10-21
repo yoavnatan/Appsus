@@ -1,4 +1,6 @@
 .mail-details.container {
+    display: grid;
+    gap: .5em;
     position: relative;
     margin: 1em;
     padding: 1em;
@@ -14,6 +16,7 @@
 
     font-size: 1.1m;
 }
+
 
 .mail-details .btn-back {
     font-variation-settings:

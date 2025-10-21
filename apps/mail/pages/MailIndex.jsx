@@ -20,7 +20,6 @@ export function MailIndex() {
     const [menuIsOpen, setMenuIsOpen] = useState(false)
     const [isReadMail, setIsReadMail] = useState(false)
 
-    const sortDir = useRef(filterBy.sortDir)
     const filtrerRef = useRef()
     let unreadMailsCount = useRef()
 
@@ -138,7 +137,7 @@ export function MailIndex() {
                     <MailFolderList mailCount={unreadMailsCount.current} menuIsOpen={menuIsOpen} mails={mails} onReadMail={onReadMail} onSetFilterBy={onSetFilterBy} filterBy={filterBy} onToggleMenu={onToggleMenu}
                         mailLabels={<MailLabels mails={mails} onSetFilterBy={onSetFilterBy} filterBy={filterBy} menuIsOpen={menuIsOpen} onToggleMenu={onToggleMenu} />} />
                 </div>
-                {isReadMail && <Outlet context={[setIsReadMail]} />}
+                {/* {isReadMail && <Outlet context={[setIsReadMail]} />} */}
                 {!isReadMail && <div className="mails-container">
                     <MailSort setFilterBy={setFilterBy} filterBy={filterBy} setSortIsShow={setSortIsShow} sortIsShow={sortIsShow} />
                     <section className="labels">
@@ -162,6 +161,8 @@ export function MailIndex() {
 // Sorting Component: //
 
 function MailSort({ filterBy, setFilterBy, setSortIsShow, sortIsShow }) {
+
+    const sortDir = useRef(filterBy.sortDir)
 
     function onToggleSortOptions() {
         setSortIsShow(prevStat => !prevStat)
