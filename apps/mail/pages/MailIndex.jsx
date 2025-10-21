@@ -19,9 +19,12 @@ export function MailIndex() {
     const [sortIsShow, setSortIsShow] = useState(false)
     const [menuIsOpen, setMenuIsOpen] = useState(false)
     const [isReadMail, setIsReadMail] = useState(false)
+    const [menuIsFull, setMenuIsFull] = useState(true)
 
     const filtrerRef = useRef()
     let unreadMailsCount = useRef()
+    // const updatePosRef = useRef(updatePos).current
+    const h1Ref = useRef()
 
     useEffect(() => {
         filtrerRef.current = filterBy
@@ -29,6 +32,8 @@ export function MailIndex() {
         loadMails()
         unreadMailsCount.current = unreadMailsCounter
     }, [filterBy])
+
+
 
     // useEffect(() => {
     //     filtrerRef.current = filterBy
@@ -44,6 +49,10 @@ export function MailIndex() {
                 console.log('err:', err)
                 showErrorMsg('cannot get mails!')
             })
+    }
+
+    function onToggleMenuFull() {
+        setMenuIsFull(prevState => !prevState)
     }
 
     function onReadMail(mail) {
@@ -126,15 +135,12 @@ export function MailIndex() {
 
     return (
 
-        <section className="mail-index roboto-thin">
+        <section className={`mail-index  roboto-thin ${menuIsFull ? 'menu-full' : ''}`}>
             <div className={`main-screen ${menuIsOpen ? 'active' : ''}`} onClick={onToggleMenu}></div>
             <MailFilter onToggleMenu={onToggleMenu} onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
             <section className="mail-index inner-container">
                 <div className={`aside-bar ${menuIsOpen ? 'open' : ''}`}>
-                    <Link to='/mail/compose' className="btn btn-compose roboto-bold"><span className="material-symbols-outlined">
-                        edit
-                    </span> Compose New</Link>
-                    <MailFolderList mailCount={unreadMailsCount.current} menuIsOpen={menuIsOpen} mails={mails} onReadMail={onReadMail} onSetFilterBy={onSetFilterBy} filterBy={filterBy} onToggleMenu={onToggleMenu}
+                    <MailFolderList onToggleMenuFull={onToggleMenuFull} menuIsFull={menuIsFull} mailCount={unreadMailsCount.current} menuIsOpen={menuIsOpen} mails={mails} onReadMail={onReadMail} onSetFilterBy={onSetFilterBy} filterBy={filterBy} onToggleMenu={onToggleMenu}
                         mailLabels={<MailLabels mails={mails} onSetFilterBy={onSetFilterBy} filterBy={filterBy} menuIsOpen={menuIsOpen} onToggleMenu={onToggleMenu} />} />
                 </div>
                 {/* {isReadMail && <Outlet context={[setIsReadMail]} />} */}
@@ -152,6 +158,9 @@ export function MailIndex() {
                     />
                 </div>}
             </section>
+            <Link to='/mail/compose' ref={h1Ref} className="btn btn-compose roboto-bold"><span className="material-symbols-outlined">
+                edit
+            </span>{menuIsFull && 'Compose New'}</Link>
             {!isReadMail && <Outlet context={[onSendMail, filterBy, setSearchParams, searchParams, onSaveDraft, loadMails, onSetMails]} />}
         </section>
     )

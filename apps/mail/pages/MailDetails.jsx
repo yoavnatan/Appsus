@@ -1,4 +1,5 @@
 import { mailService } from "../services/mail.service.js"
+import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 
 const { useParams, useNavigate, Link, } = ReactRouterDOM
 const { useState, useEffect, useRef } = React
@@ -33,6 +34,19 @@ export function MailDetails() {
         navigate('/mail')
     }
 
+    function onRemoveMail(ev, mailId) {
+        ev.stopPropagation()
+
+        mailService.remove(mailId)
+            .then(() => {
+                showSuccessMsg('Mail removed')
+                navigate('/mail')
+
+            })
+            .catch(err => console.log('err', err))
+
+    }
+
     function onUnreadManualy() {
         toggleRead.current = toggleRead.current === 'read' ? 'unread' : 'read'
         mailService.get(params.mailId)
@@ -42,7 +56,7 @@ export function MailDetails() {
 
     if (isLoading) return <div className="loader"></div>
 
-    const { subject, body, date, from } = mail
+    const { subject, body, date, from, id } = mail
     return (
 
         <section className="mail-details container roboto-thin">
@@ -63,6 +77,9 @@ export function MailDetails() {
             </span>
             <span className="btn-toggle-read material-symbols-outlined" onClick={onUnreadManualy}>
                 {toggleRead.current === 'read' ? 'drafts' : 'mark_email_unread'}
+            </span>
+            <span className="btn-delete material-symbols-outlined btn-remove" onClick={(event) => onRemoveMail(event, id)}>
+                delete
             </span>
 
         </section>

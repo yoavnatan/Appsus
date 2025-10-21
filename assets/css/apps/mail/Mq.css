@@ -21,6 +21,11 @@
         transform: translateX(0);
     }
 
+    .mail-index.menu-full .inner-container {
+        display: grid;
+        grid-template-columns: auto 1fr;
+    }
+
     .btn-toggle-menu {
         display: block;
         margin-inline-start: 1em;
@@ -45,6 +50,7 @@
         align-items: center;
         gap: 1em;
     }
+
 
 
     .mail-list.container {
@@ -140,11 +146,35 @@
 
         .label {
             padding: 1em;
+            padding-inline: 1em;
+            padding-block: 0.5em;
+            border-radius: 0 2em 2em 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: .2em;
 
         }
     }
 
     .symbols.container {
         display: flex;
+    }
+
+
+    .btn-compose {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        top: auto;
+        z-index: 99;
+    }
+
+    .compose-modal-form {
+        max-width: 90dvw;
+    }
+
+    .main-menu {
+        translate: -1000%;
     }
 }

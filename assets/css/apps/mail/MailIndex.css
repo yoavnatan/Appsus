@@ -1,7 +1,21 @@
  /* mail index  */
+
+ .mail-index {
+     transition: grid-template-columns .1s;
+ }
+
+ .mail-index.menu-full .inner-container {
+     display: grid;
+     grid-template-columns: 200px 1fr;
+ }
+
  .mail-index.inner-container {
      display: grid;
-     grid-template-columns: auto 1fr;
+     grid-template-columns: 70px 1fr;
+ }
+
+ .mail-index:not(.menu-full) .mail-folders.container {
+     padding: 3em 0;
  }
 
  .mails-container {
@@ -19,15 +33,22 @@
  }
 
  .btn-compose {
+     position: absolute;
+     top: 100px;
+     /* left: 2px; */
      display: flex;
      align-items: center;
-     margin-top: 1em;
-     margin-left: 0.5em;
+     margin: 1em .5em 0 0.5em;
+     /* margin-left: 0.5em; */
      padding: 1em;
      border-radius: 0.5em;
      background-color: var(--bg02);
      gap: 10px;
      width: 180px;
+ }
+
+ .mail-index:not(.menu-full) .btn-compose {
+     width: 55px;
  }
 
  .btn-compose:hover {

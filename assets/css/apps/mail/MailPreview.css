@@ -65,13 +65,22 @@
 
 .mail-item .material-symbols-outlined {
     background-color: none;
-    /* padding: 0.2em; */
     border-radius: 100%;
     transition: border-radius .3s;
 }
 
-.mail-item .material-symbols-outlined:hover {
+.mail-index .material-symbols-outlined:hover {
     outline: .2em var(--bg6) solid;
     background-color: var(--bg6);
-    /* padding: .2em */
+}
+
+.mail-details .material-symbols-outlined:hover {
+    outline: .2em var(--bg6) solid;
+    background-color: var(--bg6);
+}
+
+.mail-details .material-symbols-outlined {
+    background-color: none;
+    border-radius: 100%;
+    transition: border-radius .3s;
 }
