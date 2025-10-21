@@ -1,31 +1,13 @@
 
 import { noteService } from "../services/note.service.js"
-import { utilService } from "../../../services/util.service.js"
-import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 
-
-const { useNavigate, useParams, Link } = ReactRouterDOM
 const { useState, useEffect, useRef } = React
 
 export function AddNote({ isAddNote, onFocus, onSetIsAddNote, saveNote }) {
 
     const [noteToAdd, setNoteToAdd] = useState(noteService.getEmptyNote())
-    const [isLoading, setIsLoading] = useState(false)
-    const navigate = useNavigate()
+    
 
-
-    useEffect(() => {
-        loadnote()
-    }, [])
-
-
-    function loadnote() {
-        setIsLoading(true)
-        noteService.get(noteToAdd.id)
-            .then(note => setNoteToAdd(note))
-            .catch(err => console.log('err:', err))
-            .finally(() => setIsLoading(false))
-    }
 
     function handleChange({ target }) {
         const field = target.name
@@ -75,16 +57,13 @@ export function AddNote({ isAddNote, onFocus, onSetIsAddNote, saveNote }) {
 
 
     )
-    if (isLoading) return <div> Loading...</div>
 
-    const { title, txt } = noteToAdd
-    console.log(noteToAdd)
     return (
         <section className="create-note-modal" >
             <h1>note</h1>
             <form onSubmit={onSaveNote} className="note-form">
                 <input
-                    value={title}
+                    
                     onChange={handleChange}
                     type="text"
                     name="title"
@@ -94,7 +73,7 @@ export function AddNote({ isAddNote, onFocus, onSetIsAddNote, saveNote }) {
                 />
 
                 <textarea
-                    value={txt}
+                    
                     onChange={handleChange}
                     name="txt"
                     placeholder="Add your text..."
