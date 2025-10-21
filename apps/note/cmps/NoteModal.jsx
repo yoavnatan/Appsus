@@ -1,3 +1,6 @@
+
+
+
 const { useState, useEffect } = React
 
 export function NoteModal({ note, onRemoveNote, saveNote, onClose }) {
@@ -88,7 +91,7 @@ export function NoteModal({ note, onRemoveNote, saveNote, onClose }) {
           >
             delete
           </span>
-
+          <NoteBackground />
           <input
             onChange={handleColorChange}
             type="color"

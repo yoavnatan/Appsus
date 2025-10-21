@@ -86,7 +86,6 @@ export function NoteIndex() {
                 <NoteList notes={notes} onRemoveNote={onRemoveNote} saveNote={saveNote} onSelectNote={onSelectNote} />
             </section>
         </section>
-        <button onClick={() => toggle()}></button>
         {selectedNote && <NoteModal note={selectedNote} onRemoveNote={onRemoveNote} saveNote={saveNote} onClose={() => setSelectedNote(null)} />}
     </React.Fragment>
 

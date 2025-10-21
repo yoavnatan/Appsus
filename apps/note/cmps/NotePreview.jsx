@@ -1,4 +1,4 @@
-import { NoteModal } from "./NoteModal.jsx"
+
 
 const { useState, useEffect, useRef } = React
 
