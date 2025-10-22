@@ -17,16 +17,16 @@ export function MailLabels({ filterBy, onSetFilterBy, menuIsOpen, onToggleMenu }
     }
     return (
         <section className="labels-container flex">
-            <div className={`label ${filterByToEdit.label === 'main' ? 'roboto-bold active' : ''}`} onClick={() => handleFolderChange('main')}><span className="material-symbols-outlined">
+            <div className={`label ${filterBy.label === 'main' ? 'roboto-bold active' : ''}`} onClick={() => handleFolderChange('main')}><span className="material-symbols-outlined">
                 inbox
             </span> Main</div>
-            <div className={`label ${filterByToEdit.label === 'promoted' ? 'roboto-bold active' : ''}`} onClick={() => handleFolderChange('promoted')}><span className="material-symbols-outlined">
+            <div className={`label ${filterBy.label === 'promoted' ? 'roboto-bold active' : ''}`} onClick={() => handleFolderChange('promoted')}><span className="material-symbols-outlined">
                 shoppingmode
             </span> Promoted</div>
-            <div className={`label ${filterByToEdit.label === 'social' ? 'roboto-bold active' : ''}`} onClick={() => handleFolderChange('social')}><span className="material-symbols-outlined">
+            <div className={`label ${filterBy.label === 'social' ? 'roboto-bold active' : ''}`} onClick={() => handleFolderChange('social')}><span className="material-symbols-outlined">
                 group
             </span> Social Media</div>
-            <div className={`label ${filterByToEdit.label === 'updates' ? 'roboto-bold active' : ''}`} onClick={() => handleFolderChange('updates')}><span className="material-symbols-outlined">
+            <div className={`label ${filterBy.label === 'updates' ? 'roboto-bold active' : ''}`} onClick={() => handleFolderChange('updates')}><span className="material-symbols-outlined">
                 info
             </span> Updates</div>
         </section>
