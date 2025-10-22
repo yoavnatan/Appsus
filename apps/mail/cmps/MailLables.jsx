@@ -5,15 +5,16 @@ export function MailLabels({ filterBy, onSetFilterBy, menuIsOpen, onToggleMenu }
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
 
     useEffect(() => {
+
         onSetFilterBy(filterByToEdit)
     }, [filterByToEdit])
 
     function handleFolderChange(label) {
-        setFilterByToEdit(prevFilter => ({ ...prevFilter, ['label']: label }))
+        const newFilter = { status: 'inbox', label: label }
+        setFilterByToEdit(prevFilter => ({ ...prevFilter, ...newFilter }))
         setTimeout(() => { if (menuIsOpen) onToggleMenu() }, 0)
 
     }
-
     return (
         <section className="labels-container flex">
             <div className={`label ${filterByToEdit.label === 'main' ? 'roboto-bold active' : ''}`} onClick={() => handleFolderChange('main')}><span className="material-symbols-outlined">

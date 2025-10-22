@@ -132,7 +132,8 @@ export function MailIndex() {
 
     if (!mails && !isReadMail) return <div className="loader">Loading...</div>
     console.log(mails)
-
+    console.log('hi')
+    filterBy.current && console.log(filterBy.current.status)
     return (
 
         <section className={`mail-index  roboto-thin ${menuIsFull ? 'menu-full' : ''}`}>

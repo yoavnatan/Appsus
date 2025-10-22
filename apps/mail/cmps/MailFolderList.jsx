@@ -16,12 +16,14 @@ export function MailFolderList({ mails, menuIsOpen, onSetFilterBy, filterBy, mai
     }
 
     function handleFolderChange(folder) {
-        setFilterByToEdit(prevFilter => ({ ...prevFilter, ['status']: folder }))
+        setFilterByToEdit(prevFilter => ({ ...prevFilter, ['status']: folder, ['label']: 'main' }))
         setTimeout(() => { if (menuIsOpen) onToggleMenu() }, 0)
 
     }
 
     const countURmails = countUnreadMails()
+
+    console.log(filterBy.status)
 
     return (
         <section className={`mail-folders container ${menuIsFull ? 'full' : ''}`}>
@@ -31,20 +33,20 @@ export function MailFolderList({ mails, menuIsOpen, onSetFilterBy, filterBy, mai
             <nav>
                 {menuIsOpen && mailLabels}
 
-                <div className={`mail-folder ${countURmails > 0 ? 'roboto-bold' : 'roboto-thin'} ${filterByToEdit.status === 'inbox' ? 'active' : ''}`}
+                <div className={`mail-folder ${countURmails > 0 ? 'roboto-bold' : 'roboto-thin'} ${filterBy.status === 'inbox' ? 'active' : ''}`}
                     onClick={() => handleFolderChange('inbox')}><span className="material-symbols-outlined inbox">
                         inbox
                     </span>{(menuIsFull || menuIsOpen) && 'Inbox'} {(menuIsFull || menuIsOpen) && <span className="mail-counter">{mailCount}</span>}</div>
-                <div className={`mail-folder roboto-thin ${filterByToEdit.status === 'starred' ? 'active' : ''}`} onClick={() => handleFolderChange('starred')}><span className="material-symbols-outlined">
+                <div className={`mail-folder roboto-thin ${filterBy.status === 'starred' ? 'active' : ''}`} onClick={() => handleFolderChange('starred')}><span className="material-symbols-outlined">
                     star
                 </span>{(menuIsFull || menuIsOpen) && 'Starred'}</div>
-                <div className={`mail-folder roboto-thin ${filterByToEdit.status === 'trash' ? 'active' : ''}`} onClick={() => handleFolderChange('trash')}><span className="material-symbols-outlined">
+                <div className={`mail-folder roboto-thin ${filterBy.status === 'trash' ? 'active' : ''}`} onClick={() => handleFolderChange('trash')}><span className="material-symbols-outlined">
                     delete
                 </span>{(menuIsFull || menuIsOpen) && 'Trash'}</div>
-                <div className={`mail-folder roboto-thin ${filterByToEdit.status === 'sent' ? 'active' : ''}`} onClick={() => handleFolderChange('sent')}><span className="material-symbols-outlined">
+                <div className={`mail-folder roboto-thin ${filterBy.status === 'sent' ? 'active' : ''}`} onClick={() => handleFolderChange('sent')}><span className="material-symbols-outlined">
                     send
                 </span>{(menuIsFull || menuIsOpen) && 'Sent'}</div>
-                <div className={`mail-folder roboto-thin ${filterByToEdit.status === 'draft' ? 'active' : ''}`} onClick={() => handleFolderChange('draft')}><span className="material-symbols-outlined">
+                <div className={`mail-folder roboto-thin ${filterBy.status === 'draft' ? 'active' : ''}`} onClick={() => handleFolderChange('draft')}><span className="material-symbols-outlined">
                     draft
                 </span>{(menuIsFull || menuIsOpen) && 'Draft'}</div>
             </nav>

@@ -7,8 +7,9 @@
         position: fixed;
         left: 0;
         top: 0;
-        height: 100dvh;
-        min-width: 40dvw;
+        height: 110dvh;
+        height: 110vh;
+        min-width: 50dvw;
         transform: translateX(-100%);
         background-color: var(--bg5);
         transition: transform .3s;
