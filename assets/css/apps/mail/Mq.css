@@ -1,4 +1,10 @@
 @media (max-width: 650px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
     .mail-index.inner-container {
         grid-template-columns: 1fr;
     }
@@ -16,6 +22,7 @@
         z-index: 99;
         margin-top: 0;
         padding-top: 3em;
+        /* overflow: hidden; */
     }
 
     .aside-bar.open {
@@ -41,7 +48,8 @@
     }
 
     .mails-container {
-        margin-inline: .5em;
+        margin-inline: 0;
+        /* padding: 0; */
     }
 
     .mail-filter.container {
