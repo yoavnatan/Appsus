@@ -1,3 +1,4 @@
+import { AppMenu } from "./AppMenu.jsx"
 const { Link, NavLink } = ReactRouterDOM
 const { useState, useEffect } = React
 
@@ -8,7 +9,7 @@ export function AppHeader() {
 
     return <header className="app-header">
         <Link to="/">
-            <img className="main-logo" src="./assets/img/logo.png" />        </Link>
+            <img className="main-logo" src="./assets/img/google.png" />        </Link>
         {/* <nav>
             <NavLink to="/">Home</NavLink>
             <NavLink to="/about">About</NavLink>
@@ -26,12 +27,12 @@ export function AppHeader() {
     </header>
 }
 
-function AppMenu({ setAppMenuOpen }) {
+// function AppMenu({ setAppMenuOpen }) {
 
-    return (
-        <React.Fragment>
-            <NavLink to="/mail" onClick={() => setAppMenuOpen(prevState => !prevState)}><img className="mail-logo" src="./apps/mail/imgs/gmail.png" /></NavLink>
-            <NavLink to="/note" onClick={() => setAppMenuOpen(prevState => !prevState)}><img className="note-logo" src="./apps/mail/imgs/keep.png" /></NavLink>
-        </React.Fragment>
-    )
-}
+//     return (
+//         <React.Fragment>
+//             <NavLink to="/mail" onClick={() => setAppMenuOpen(prevState => !prevState)}><img className="mail-logo" src="./apps/mail/imgs/gmail.png" /></NavLink>
+//             <NavLink to="/note" onClick={() => setAppMenuOpen(prevState => !prevState)}><img className="note-logo" src="./apps/mail/imgs/keep.png" /></NavLink>
+//         </React.Fragment>
+//     )
+// }

@@ -17,6 +17,9 @@
 
 .main-logo {
     width: 60px;
+    /* z-index: 999999; */
+    position: relative;
+    z-index: 999;
 }
 
 .apps-menu span {

@@ -1,12 +1,15 @@
 import { showSuccessMsg } from '../services/event-bus.service.js'
+const { Link, NavLink } = ReactRouterDOM
 
 export function Home() {
     return <section className="container home">
-        <h1>Welcome home</h1>
-        <button onClick={() => showSuccessMsg('Yep, that works')}>Show Msg</button>
-        <div className="box-container">
-            <div className="box1"></div>
-            <div className="box2"></div>
+
+        <div className="home-container">
+
+            <NavLink to="/mail" onClick={() => setAppMenuOpen(prevState => !prevState)}><img className="mail-logo" src="./apps/mail/imgs/gmail.png" /></NavLink>
+            <NavLink to="/note" onClick={() => setAppMenuOpen(prevState => !prevState)}><img className="note-logo" src="./apps/mail/imgs/keep.png" /></NavLink>
+
+
         </div>
     </section>
 }

@@ -18,7 +18,7 @@ export function RootCmp() {
         <section className="root-cmp">
             <AppHeader />
             <Routes>
-                <Route path="/" element={<MailIndex />} />
+                <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/mail" element={<MailIndex />} >
                     <Route path="/mail/compose" element={<MailCompose />} />
