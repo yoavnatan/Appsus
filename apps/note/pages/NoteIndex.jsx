@@ -5,6 +5,7 @@ import { NoteList } from "../cmps/NoteList.jsx"
 import { NoteFilter } from "../cmps/NoteFilter.jsx"
 import { NoteModal } from "../cmps/NoteModal.jsx"
 import { AddNote } from "../cmps/AddNote.jsx"
+import { NoteBackground } from "./NoteBackground.jsx"
 
 
 const { useState, useEffect, useRef } = React
@@ -14,17 +15,26 @@ export function NoteIndex() {
 
     const [notes, setNotes] = useState(null)
     const [isAddNote, setIsAddNote] = useState(false)
+    const [isChangeNote, setIsChangeNote] = useState(false)
     const [selectedNote, setSelectedNote] = useState(null)
+    const [lastSelectedNote, setLastSelectedNote] = useState(null)
+    const [background, setBackground] = useState(null)
+    const [isSelectedNote, setIsSelectedNote] = useState(false)
+   
+    
+    
 
     useEffect(() => {
-        if (!isAddNote) loadNotes()
-    }, [isAddNote])
+        if (!isChangeNote) loadNotes()
+            setIsChangeNote(false)
+    }, [isChangeNote])
 
     function loadNotes() {
         noteService.query()
             .then((notes) => {
                 setNotes(notes)
-                console.log('notes loaded:', notes)
+                setIsChangeNote(false)
+            
             })
             .catch((err) => {
                 showErrorMsg('Cannot load notes')
@@ -46,6 +56,7 @@ export function NoteIndex() {
 
 
     function saveNote(noteToAdd) {
+        console.log('save')
         noteService.save(noteToAdd)
             .then((savedNote) => {
                 loadNotes()
@@ -57,10 +68,6 @@ export function NoteIndex() {
             })
     }
 
-    function toggle() {
-        setIsShowModal(!selectedNote)
-    }
-
 
 
     function onSetIsAddNote() {
@@ -69,6 +76,44 @@ export function NoteIndex() {
 
     function onSelectNote(note) {
         setSelectedNote(note)
+    }
+    function onSetLastSelectedNote(note) {
+        setLastSelectedNote(note)
+    }
+
+    function onSetIsSelectedNote(isSelected) {
+        setIsSelectedNote(isSelected)
+    }
+
+   
+    function onChangeBackgroundColor(color) {
+        const noteToUpdate = {
+            ...selectedNote,
+            style: {
+                ...selectedNote.style,
+                backgroundColor: color
+            }
+        }
+        setSelectedNote(noteToUpdate)
+    }
+
+    function onCloseModal(selectedNote) {
+        if (background) {
+            const noteToSave = {
+                ...selectedNote,
+                style: {
+                    ...selectedNote.style,
+                    backgroundColor: background
+                }
+            }
+            saveNote(noteToSave)         
+        } else {
+            saveNote(selectedNote)          
+        }
+        
+        setBackground(null)
+        setSelectedNote(null)
+        
     }
 
     return <React.Fragment>
@@ -83,10 +128,10 @@ export function NoteIndex() {
 
             </section>
             <section className="notes-container">
-                <NoteList notes={notes} onRemoveNote={onRemoveNote} saveNote={saveNote} onSelectNote={onSelectNote} />
+                <NoteList  setBackground={setBackground} selectedNote={selectedNote} onSetIsSelectedNote={onSetIsSelectedNote} onSetLastSelectedNote={onSetLastSelectedNote} lastSelectedNote={lastSelectedNote} onChangeBackgroundColor={onChangeBackgroundColor} notes={notes} onRemoveNote={onRemoveNote} saveNote={saveNote} onSelectNote={onSelectNote} />
             </section>
         </section>
-        {selectedNote && <NoteModal note={selectedNote} onRemoveNote={onRemoveNote} saveNote={saveNote} onClose={() => setSelectedNote(null)} />}
+        {selectedNote && <NoteModal  selectedNote={selectedNote} setBackground={setBackground}  isSelectedNote={isSelectedNote} note={selectedNote} onRemoveNote={onRemoveNote} saveNote={saveNote} onCloseModal={onCloseModal} onClose={() => setSelectedNote(null)}  />}
     </React.Fragment>
 
 }

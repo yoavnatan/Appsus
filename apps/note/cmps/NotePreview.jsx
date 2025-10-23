@@ -1,79 +1,50 @@
+import { NoteBackground } from "./NoteBackground.jsx"
 
 
 const { useState, useEffect, useRef } = React
 
 
-export function NotePreview({ note, saveNote, onRemoveNote, onSelectNote }) {
+export function NotePreview({ selectedNote,setBackground, onSetIsSelectedNote, onSetLastSelectedNote, note, onRemoveNote, onSelectNote, }) {
 
-    // const [isShowDetails, setIsShowDetails] = useState(false)
-    const [selectedColor, setSelectedColor] = useState(note.style.backgroundColor)
-
-    function handleChange({ target }) {
-        const field = target.name
-        let value = target.value
-
-        switch (target.type) {
-            case 'range':
-                value = +value
-                break
-
-            case 'checkbox':
-                value = target.checked
-                break
-            case 'color':
-                setSelectedColor(value)
-                break
-
-            case 'text':
-            case 'textarea':
-
-            default:
-                value = target.value
-                break
-
-        }
-
-    }
-
-    function onChangeBackgroundColor(color) {
-        const noteToUpdate = {
-            ...note,
-            style: {
-                ...note.style,
-                backgroundColor: color
-            }
-        }
-        saveNote(noteToUpdate)
-    }
-
-    function onBlur() {
-        onChangeBackgroundColor(selectedColor)
-    }
+    const [isShowPalette, setIsShowPalette] = useState(false)
+    const [selectedColorPreview, setSelectedColorPreview] = useState(note.style.backgroundColor)
 
 
-    return (  
-        <div className="note-preview" style={{ backgroundColor: note.style.backgroundColor }} onClick={() => onSelectNote(note) }>
-            <h3>{note.info.title}</h3>
-            <p>{note.info.txt}</p>
-            <section className="note-actions">
-                <span className="material-symbols-outlined"
-                onClick={(ev) => {
+    useEffect(() => {
+        setIsShowPalette(false)
+    }, [])
+    return (
+        <React.Fragment>
+            <div className={`note-preview ${note.style.backgroundColor}            
+            `}
+                onClick={() => {
+                    if (isShowPalette) return
+                    onSelectNote(note)
+                    onSetLastSelectedNote(note)
+                    onSetIsSelectedNote(true)
+                }
+                }
+            >
+                <h3>{note.info.title}</h3>
+                <p>{note.info.txt}</p>
+                <section className="note-actions-preview">
+                    <span className="material-symbols-outlined"
+                        onClick={(ev) => {
+                            ev.stopPropagation()
+                            onRemoveNote(note.id)
+                        }}>
+                        delete
+                    </span>
+                    <span className="material-symbols-outlined palette" onClick={(ev) => {
                         ev.stopPropagation()
-                        onRemoveNote(note.id)
+                        setIsShowPalette(!isShowPalette)
+
                     }}>
-                    delete
-                </span>
-
-                <input
-                    onClick={(ev) => ev.stopPropagation()}
-                    onChange={handleChange}
-                    type="color"
-                    name="backgroundColor"
-                    value={selectedColor}
-                    onBlur={onBlur}
-                />
-
-            </section>
-        </div>
+                        palette
+                    </span>
+                    {isShowPalette && <NoteBackground selectedNote={selectedNote} setSelectedColorPreview={setSelectedColorPreview} setBackground={setBackground} onClose={() => setIsShowPalette(false)}/>}
+                </section>
+            </div>
+        </React.Fragment>
     )
 }

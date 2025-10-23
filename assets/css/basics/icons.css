@@ -34,4 +34,8 @@
         'opsz' 24;
 }
 
+.material-symbols-outlined:hover {
+    cursor: pointer;
+}
+
 

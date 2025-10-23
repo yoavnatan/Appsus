@@ -1,11 +1,12 @@
-
+import { NoteBackground } from "./NoteBackground.jsx"
 
 
 const { useState, useEffect } = React
 
-export function NoteModal({ note, onRemoveNote, saveNote, onClose }) {
+export function NoteModal({setBackground, isSelectedNote, background, note, onRemoveNote, selectedNote, onClose, onCloseModal, onChangeBackgroundColor }) {
 
-  const [selectedColor, setSelectedColor] = useState(note.style.backgroundColor)
+  const [selectedColor, setSelectedColor] = useState(selectedNote.style.backgroundColor)
+  const [isShowPalette, setIsShowPalette] = useState(false)
   const [noteToShow, setNoteToShow] = useState(() => ({
     ...note,
     info: { ...note.info },
@@ -13,15 +14,8 @@ export function NoteModal({ note, onRemoveNote, saveNote, onClose }) {
   }))
 
 
-  function handleColorChange({ target }) {
-    const newColor = target.value
-    setSelectedColor(newColor)
-    setNoteToShow(prev => ({
-      ...prev,
-      style: { ...prev.style, backgroundColor: newColor }
-    }))
-    saveNote(noteToShow)
-  }
+  useEffect(() => {
+  }, [selectedColor])
 
   function handleChange({ target }) {
     const field = target.name
@@ -41,21 +35,25 @@ export function NoteModal({ note, onRemoveNote, saveNote, onClose }) {
     }))
   }
 
-  function onSaveNote(ev) {
-    ev.preventDefault()
-    saveNote(noteToShow)
-    onClose()
-  }
 
+  console.log(selectedColor)
   return (
     <React.Fragment>
-      <div className="overlay-modal roboto" onClick={() => onClose()} ></div>
-      <div
-        className="note-show-modal"
+      <div className="overlay-modal roboto" onClick={() => {
+        onClose()
+      }}
+      ></div>
+      <div className={`
+      ${selectedColor ? selectedColor : selectedNote.style.backgroundColor} 
+      ${selectedNote && selectedNote.id === note.id ? 'selected-note ' : ''} 
+       note-show-modal `}
         onClick={(ev) => ev.stopPropagation()}
-        style={{ backgroundColor: noteToShow.style.backgroundColor }}
       >
-        <form onSubmit={onSaveNote} className="form-show-modal">
+        <form className="form-show-modal"
+          onSubmit={(ev) => {
+            ev.preventDefault()
+            onCloseModal(noteToShow)
+          }}>
           <input
             value={noteToShow.info.title || ''}
             onChange={handleChange}
@@ -91,14 +89,10 @@ export function NoteModal({ note, onRemoveNote, saveNote, onClose }) {
           >
             delete
           </span>
-          <NoteBackground />
-          <input
-            onChange={handleColorChange}
-            type="color"
-            name="backgroundColor"
-            className="note-color-input-modal"
-            value={selectedColor}
-          />
+          <span className="material-symbols-outlined" onClick={() => setIsShowPalette(true)}>
+            palette
+          </span>
+          {isShowPalette && <NoteBackground setSelectedColor={setSelectedColor} setBackground={setBackground} note={note} onClose={() => setIsShowPalette(false)} />}
         </section>
       </div>
     </React.Fragment>
