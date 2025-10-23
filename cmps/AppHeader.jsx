@@ -1,16 +1,37 @@
 const { Link, NavLink } = ReactRouterDOM
+const { useState, useEffect } = React
+
 
 export function AppHeader() {
 
+    const [appMenuOpen, setAppMenuOpen] = useState(false)
+
     return <header className="app-header">
         <Link to="/">
-            <h3>LOGO ✨</h3>
-        </Link>
-        <nav>
+            <img className="main-logo" src="./assets/img/logo.png" />        </Link>
+        {/* <nav>
             <NavLink to="/">Home</NavLink>
             <NavLink to="/about">About</NavLink>
-            <NavLink to="/mail">Mail</NavLink>
-            <NavLink to="/note">Note</NavLink>
-        </nav>
+        </nav> */}
+
+        <section className="apps-menu">
+            <div onClick={() => setAppMenuOpen(prevState => !prevState)}><span class="material-symbols-outlined">
+                apps
+            </span></div>
+            <div className={`apps-menu-inner ${appMenuOpen ? 'open' : ''}`}>
+                {appMenuOpen && <AppMenu setAppMenuOpen={setAppMenuOpen} />}
+            </div>
+        </section>
+
     </header>
+}
+
+function AppMenu({ setAppMenuOpen }) {
+
+    return (
+        <React.Fragment>
+            <NavLink to="/mail" onClick={() => setAppMenuOpen(prevState => !prevState)}><img className="mail-logo" src="./apps/mail/imgs/gmail.png" /></NavLink>
+            <NavLink to="/note" onClick={() => setAppMenuOpen(prevState => !prevState)}><img className="note-logo" src="./apps/mail/imgs/keep.png" /></NavLink>
+        </React.Fragment>
+    )
 }

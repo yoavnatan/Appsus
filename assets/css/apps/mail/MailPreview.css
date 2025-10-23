@@ -19,7 +19,7 @@
     text-overflow: ellipsis;
 }
 
-.mail-preview .btn-remove {}
+/* .mail-preview .btn-remove {} */
 
 .mail-preview .btn-remove:hover {
     background-color: var(--bg4);
