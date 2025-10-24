@@ -48,8 +48,14 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  gap: 10px;
   margin-top: 8px;
+  
+
 }
+
+
+
 
 .save-btn {
   background-color: #f1f3f4;
@@ -59,6 +65,7 @@
   font-size: 0.9rem;
   cursor: pointer;
   transition: background-color 0.2s ease;
+
 }
 
 .save-btn:hover {
@@ -97,3 +104,4 @@
 .create-note-input::placeholder {
   color: #70757a;
 }
+

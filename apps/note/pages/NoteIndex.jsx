@@ -17,16 +17,16 @@ export function NoteIndex() {
     const [isAddNote, setIsAddNote] = useState(false)
     const [isChangeNote, setIsChangeNote] = useState(false)
     const [selectedNote, setSelectedNote] = useState(null)
-    const [lastSelectedNote, setLastSelectedNote] = useState(null)
     const [background, setBackground] = useState(null)
     const [isSelectedNote, setIsSelectedNote] = useState(false)
-   
-    
-    
+    const [img, setImg] = useState(null)
+    const [selectedNotePalette, setSelectedNotePalette] = useState(null)
+
+
 
     useEffect(() => {
         if (!isChangeNote) loadNotes()
-            setIsChangeNote(false)
+        setIsChangeNote(false)
     }, [isChangeNote])
 
     function loadNotes() {
@@ -34,7 +34,7 @@ export function NoteIndex() {
             .then((notes) => {
                 setNotes(notes)
                 setIsChangeNote(false)
-            
+
             })
             .catch((err) => {
                 showErrorMsg('Cannot load notes')
@@ -56,7 +56,7 @@ export function NoteIndex() {
 
 
     function saveNote(noteToAdd) {
-        console.log('save')
+        console.log(noteToAdd)
         noteService.save(noteToAdd)
             .then((savedNote) => {
                 loadNotes()
@@ -68,24 +68,27 @@ export function NoteIndex() {
             })
     }
 
-
+    function onSetImg(newImg) {
+        setImg(newImg)
+    }
 
     function onSetIsAddNote() {
         setIsAddNote(false)
     }
 
+    function onSetIsSelectedNote() {
+        setIsSelectedNote(false)
+    }
+
     function onSelectNote(note) {
         setSelectedNote(note)
-    }
-    function onSetLastSelectedNote(note) {
-        setLastSelectedNote(note)
     }
 
     function onSetIsSelectedNote(isSelected) {
         setIsSelectedNote(isSelected)
     }
 
-   
+
     function onChangeBackgroundColor(color) {
         const noteToUpdate = {
             ...selectedNote,
@@ -106,14 +109,13 @@ export function NoteIndex() {
                     backgroundColor: background
                 }
             }
-            saveNote(noteToSave)         
+            saveNote(noteToSave)
         } else {
-            saveNote(selectedNote)          
+            saveNote(selectedNote)
         }
-        
+
         setBackground(null)
         setSelectedNote(null)
-        
     }
 
     return <React.Fragment>
@@ -124,14 +126,14 @@ export function NoteIndex() {
             </section>
 
             <section className="create-note">
-                <AddNote onFocus={() => setIsAddNote(true)} isAddNote={isAddNote} onSetIsAddNote={onSetIsAddNote} saveNote={saveNote} />
+                <AddNote onFocus={() => setIsAddNote(true)} img={img} onSetImg={onSetImg} isAddNote={isAddNote} onSetIsAddNote={onSetIsAddNote} saveNote={saveNote} />
 
             </section>
             <section className="notes-container">
-                <NoteList  setBackground={setBackground} selectedNote={selectedNote} onSetIsSelectedNote={onSetIsSelectedNote} onSetLastSelectedNote={onSetLastSelectedNote} lastSelectedNote={lastSelectedNote} onChangeBackgroundColor={onChangeBackgroundColor} notes={notes} onRemoveNote={onRemoveNote} saveNote={saveNote} onSelectNote={onSelectNote} />
+                <NoteList isSelectedNote={isSelectedNote} setBackground={setBackground} selectedNote={selectedNote} onSetIsSelectedNote={onSetIsSelectedNote}  onChangeBackgroundColor={onChangeBackgroundColor} notes={notes} onRemoveNote={onRemoveNote} saveNote={saveNote} onSelectNote={onSelectNote} />
             </section>
         </section>
-        {selectedNote && <NoteModal  selectedNote={selectedNote} setBackground={setBackground}  isSelectedNote={isSelectedNote} note={selectedNote} onRemoveNote={onRemoveNote} saveNote={saveNote} onCloseModal={onCloseModal} onClose={() => setSelectedNote(null)}  />}
+        {selectedNote && <NoteModal  selectedNote={selectedNote} setBackground={setBackground} isSelectedNote={isSelectedNote} note={selectedNote} onRemoveNote={onRemoveNote} saveNote={saveNote} onCloseModal={onCloseModal} onClose={() => setSelectedNote(null)} />}
     </React.Fragment>
 
 }

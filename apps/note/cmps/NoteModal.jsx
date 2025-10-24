@@ -3,7 +3,7 @@ import { NoteBackground } from "./NoteBackground.jsx"
 
 const { useState, useEffect } = React
 
-export function NoteModal({setBackground, isSelectedNote, background, note, onRemoveNote, selectedNote, onClose, onCloseModal, onChangeBackgroundColor }) {
+export function NoteModal({ setBackground, isSelectedNote, background, note, onRemoveNote, selectedNote, onClose, onCloseModal, onChangeBackgroundColor }) {
 
   const [selectedColor, setSelectedColor] = useState(selectedNote.style.backgroundColor)
   const [isShowPalette, setIsShowPalette] = useState(false)
@@ -36,14 +36,13 @@ export function NoteModal({setBackground, isSelectedNote, background, note, onRe
   }
 
 
-  console.log(selectedColor)
   return (
     <React.Fragment>
       <div className="overlay-modal roboto" onClick={() => {
-        onClose()
+        onCloseModal(noteToShow)
       }}
       ></div>
-      <div className={`
+      {noteToShow.type !== 'noteImg' && <div className={`
       ${selectedColor ? selectedColor : selectedNote.style.backgroundColor} 
       ${selectedNote && selectedNote.id === note.id ? 'selected-note ' : ''} 
        note-show-modal `}
@@ -73,9 +72,6 @@ export function NoteModal({setBackground, isSelectedNote, background, note, onRe
             id="note-txt"
           />
 
-          <div className="note-actions-modal">
-            <button type="submit" className="save-btn">Save</button>
-          </div>
         </form>
 
         <section className="note-actions-modal">
@@ -94,7 +90,40 @@ export function NoteModal({setBackground, isSelectedNote, background, note, onRe
           </span>
           {isShowPalette && <NoteBackground setSelectedColor={setSelectedColor} setBackground={setBackground} note={note} onClose={() => setIsShowPalette(false)} />}
         </section>
-      </div>
-    </React.Fragment>
+      </div>}
+
+      {noteToShow.type === 'noteImg' && <div className={`
+      ${selectedColor ? selectedColor : selectedNote.style.backgroundColor} 
+      ${selectedNote && selectedNote.id === note.id ? 'selected-note ' : ''} 
+       note-show-modal img-modal `}
+        onClick={(ev) => ev.stopPropagation()}
+      >
+        <img src={note.info.img} alt="note" className="note-image-modal" />
+        <form className="form-show-modal"
+          onSubmit={(ev) => {
+            ev.preventDefault()
+            onCloseModal(noteToShow)
+          }}>
+         
+        </form>
+
+        <section className="note-actions-modal">
+          <span
+            className="material-symbols-outlined"
+            onClick={(ev) => {
+              ev.stopPropagation()
+              onRemoveNote(note.id)
+              onClose()
+            }}
+          >
+            delete
+          </span>
+          <span className="material-symbols-outlined" onClick={() => setIsShowPalette(true)}>
+            palette
+          </span>
+          {isShowPalette && <NoteBackground setSelectedColor={setSelectedColor} setBackground={setBackground} note={note} onClose={() => setIsShowPalette(false)} />}
+        </section>
+      </div >}
+    </React.Fragment >
   )
 }

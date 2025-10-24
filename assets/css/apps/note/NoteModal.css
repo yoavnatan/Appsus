@@ -117,3 +117,10 @@
   }
 }
 
+.img-modal {
+padding: 5px;
+}
+
+.note-image-modal {
+  border-radius: 10px;
+}
