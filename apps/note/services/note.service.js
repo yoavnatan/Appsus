@@ -40,12 +40,17 @@ function remove(noteId) {
 }
 
 function save(note) {
+    let newNote = ''
     if (note.id) {
-        
         return storageService.put(NOTE_KEY, note)
-    } else {      
-        const { txt, title } = note.info
-        const newNote = _createnote(title, txt)
+    } else {
+        if (note.type === 'noteImg') {
+            const { img } = note.info
+            newNote = _createnote('#', '#', img, note.type)
+        } else {
+            const { txt, title, } = note.info
+            newNote = _createnote(title, txt, '#', note.type)
+        }
         return storageService.post(NOTE_KEY, newNote)
     }
 }
@@ -76,21 +81,39 @@ function _createNotes() {
     }
 }
 
-function _createnote(title = 'My Note', txt = 'I am a new note') {
-    const note =
-    {
-        id: utilService.makeId(),
-        createdAt: Date.now(),
-        type: 'NoteTxt',
-        isPinned: false,
-        style: {
-            backgroundColor: utilService.getRandomColor()
-        },
-        info: {
-            title: title,
-            txt: txt
+function _createnote(title = 'My Note', txt = 'I am a new note', img = '#', type) {
+    let note = {}
+    if (type !== 'noteImg') {
+        note =
+        {
+            id: utilService.makeId(),
+            createdAt: Date.now(),
+            type: type,
+            isPinned: false,
+            style: {
+                backgroundColor: utilService.getRandomColor()
+            },
+            info: {
+                title: title,
+                txt: txt,
+            }
+        }
+    } else {
+        note =
+        {
+            id: utilService.makeId(),
+            createdAt: Date.now(),
+            type: type,
+            isPinned: false,
+            style: {
+                backgroundColor: utilService.getRandomColor()
+            },
+            info: {
+                img: img
+            }
         }
     }
+    console.log(note)
     return note
 }
 

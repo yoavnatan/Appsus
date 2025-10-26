@@ -1,0 +1,92 @@
+.overlay-pallete {
+    position: fixed;
+    inset: 0; 
+    z-index: -1;
+}
+
+.color-palette {
+    position:absolute;
+    top: 50px; 
+
+    right: -30px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: #fff;
+    padding: 10px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    z-index: 1000;
+}
+
+.color {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.color:hover {
+    transform: scale(1.1);
+    border: 1px solid rgb(42, 42, 42);
+}
+
+.color.selected {
+    border: 2px solid #7c3aed;
+}
+
+
+
+.chalk {
+    background-color: #fef3e2;
+}
+
+.clay {
+    background-color: #f6e1cc;
+}
+
+.rash {
+    background-color: #e9d4f7;
+}
+
+.dusk {
+    background-color: #d3d8f7;
+}
+
+.storm {
+    background-color: #c9e3f9;
+}
+
+.fog {
+    background-color: #cde5de;
+}
+
+.sage {
+    background-color: #d5ead6;
+}
+
+.mint {
+    background-color: #e9f4c8;
+}
+
+.sand {
+    background-color: #fff6b3;
+}
+
+.peach {
+    background-color: #ffd6ba;
+}
+
+.coral {
+    background-color: #ffb3a7;
+}
+
+.default {
+    background-color: white;
+    border: 1px solid black;
+}

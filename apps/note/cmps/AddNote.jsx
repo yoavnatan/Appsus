@@ -1,32 +1,12 @@
 
 import { noteService } from "../services/note.service.js"
-import { utilService } from "../../../services/util.service.js"
-import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 
-
-const { useNavigate, useParams, Link } = ReactRouterDOM
 const { useState, useEffect, useRef } = React
 
-export function AddNote({ isAddNote, onFocus, onSetIsAddNote, saveNote }) {
+export function AddNote({ onSetImg, img, isAddNote, onFocus, onSetIsAddNote, saveNote }) {
 
     const [noteToAdd, setNoteToAdd] = useState(noteService.getEmptyNote())
-    const [isLoading, setIsLoading] = useState(false)
-    const { noteId } = useParams()
-    const navigate = useNavigate()
 
-
-    useEffect(() => {
-        if (noteId) loadnote()
-    }, [])
-
-
-    function loadnote() {
-        setIsLoading(true)
-        noteService.get(noteId)
-            .then(note => setNoteToAdd(note))
-            .catch(err => console.log('err:', err))
-            .finally(() => setIsLoading(false))
-    }
 
     function handleChange({ target }) {
         const field = target.name
@@ -42,7 +22,14 @@ export function AddNote({ isAddNote, onFocus, onSetIsAddNote, saveNote }) {
                 break
 
             case 'text':
+                break
             case 'textarea':
+                break
+            case 'file':
+                handleImageUpload(target)
+                return
+
+
             default:
                 value = target.value
                 break
@@ -50,6 +37,7 @@ export function AddNote({ isAddNote, onFocus, onSetIsAddNote, saveNote }) {
 
         setNoteToAdd(prevNote => ({
             ...prevNote,
+            type: target.type === 'file' ? 'noteImg' : 'noteTxt',
             info: {
                 ...(prevNote.info || {}),
                 [field]: value
@@ -57,14 +45,38 @@ export function AddNote({ isAddNote, onFocus, onSetIsAddNote, saveNote }) {
         }))
     }
 
+    function handleImageUpload(target) {
+        const file = target.files[0]
+        if (!file) return
+        const reader = new FileReader()
+        reader.onloadend = () => {
+            setNoteToAdd(prevNote => ({
+                ...prevNote,
+                type: 'noteImg',
+                info: {
+                    ...(prevNote.info || {}),
+                    img: reader.result
+                }
+            }))
+            onSetImg(reader.result)
+        }
+        reader.readAsDataURL(file)
+    }
+
+
+
+
 
     function onSaveNote(ev) {
         ev.preventDefault()
-        saveNote( noteToAdd)
+        console.log(noteToAdd)
+        saveNote(noteToAdd)
         onSetIsAddNote()
+        onSetImg(null)
+
     }
 
-    if (!isAddNote && !noteId) return (
+    if (!isAddNote) return (
         <section className="create-note-preview">
             <input
                 type="text"
@@ -76,37 +88,50 @@ export function AddNote({ isAddNote, onFocus, onSetIsAddNote, saveNote }) {
 
 
     )
-    if (isLoading) return <div> Loading...</div>
-
-    const { title, txt } = noteToAdd.info ? noteToAdd.info : noteToAdd
 
     return (
         <section className="create-note-modal" >
-            <h1>{noteId ? 'Edit' : 'Add'} note</h1>
-            <form onSubmit={onSaveNote} className="note-form">
-                <input
-                    value={title}
-                    onChange={handleChange}
-                    type="text"
-                    name="title"
-                    placeholder="Title"
-                    className="note-title"
-                    id="note-title" s
-                />
+            <h1>note</h1>
+            <div className="modal-action-container">
+                <form onSubmit={onSaveNote} className="note-form">
+                    {img && <img src={img} alt="note" className="note-image" />}
+                    {!img && <input
 
-                <textarea
-                    value={txt}
-                    onChange={handleChange}
-                    name="txt"
-                    placeholder="Add your text..."
-                    className="note-body"
-                    id="note-txt"
-                />
+                        onChange={handleChange}
+                        type="text"
+                        name="title"
+                        placeholder="Title"
+                        className="note-title"
+                        id="note-title"
+                    />}
 
-                <div className="note-actions">
+                    {!img && <textarea
+
+                        onChange={handleChange}
+                        name="txt"
+                        placeholder="Add your text..."
+                        className="note-body"
+                        id="note-txt"
+                    />}
+
                     <button className="save-btn">Save</button>
+                </form>
+                <div className="note-actions">
+                    <label htmlFor="note-image" className="upload-img">
+                        <span className="material-symbols-outlined">
+                            photo_camera_back
+                        </span>
+                    </label>
+                    <input
+                        className="none img-btn"
+                        name="img"
+                        id="note-image"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleChange}
+                    />
                 </div>
-            </form>
+            </div>
         </section>
 
     )

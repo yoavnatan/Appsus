@@ -1,15 +1,21 @@
 .note-preview {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    padding: 16px;
-    break-inside: avoid;
-    margin-bottom: 16px;
-    background-color: var(--color-bg-light);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 200px;
-    overflow: hidden;
+  background-color: var(--color-bg-light);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+
+
+
+.note-preview p{
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+
 }
 
 .note-preview input {
@@ -25,10 +31,38 @@
     padding: 0;
 }
 
+.note-preview .material-symbols-outlined {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
 
 .note-preview .material-symbols-outlined:hover {
     scale: 1.1;
     cursor: pointer;
     border-radius: 50%;
     background-color: none;
+}
+
+.note-preview:hover .material-symbols-outlined {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.note-preview:hover {
+    
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.1),
+        0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.note-actions-preview {
+    align-self: flex-end;
+    position: relative;
+}
+
+
+.note-img {
+    width: 100%;
+    height: 100%;
 }

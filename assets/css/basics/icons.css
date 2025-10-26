@@ -34,4 +34,13 @@
         'opsz' 24;
 }
 
+.material-symbols-outlined {
+
+  border-radius: 50%;
+}
+
+.material-symbols-outlined:hover {
+    cursor: pointer;
+}
+
 
