@@ -16,7 +16,7 @@ export function AppHeader() {
         </nav> */}
 
         <section className="apps-menu">
-            <div onClick={() => setAppMenuOpen(prevState => !prevState)}><span class="material-symbols-outlined">
+            <div onClick={() => setAppMenuOpen(prevState => !prevState)}><span className="material-symbols-outlined">
                 apps
             </span></div>
             <div className={`apps-menu-inner ${appMenuOpen ? 'open' : ''}`}>
