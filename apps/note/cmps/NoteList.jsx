@@ -5,17 +5,25 @@ import { NoteBackground } from './NoteBackground.jsx'
 
 const { useEffect, useRef, useState } = React
 
-export function NoteList({ isSelectedNote,setBackground, selectedNote, onSetIsSelectedNote,  notes, onRemoveNote, saveNote, onSelectNote, onChangeBackgroundColor }) {
+export function NoteList({ isSelectedNote, setBackground, selectedNote, onSetIsSelectedNote, notes, onRemoveNote, saveNote, onSelectNote, onChangeBackgroundColor }) {
 
     const [notePalette, setNotePalette] = useState(null)
-   
+    const [activeNoteId, setActiveNoteId] = useState(null)
+
+    useEffect(() => {
+        if (isSelectedNote) {
+            setNotePalette(null)
+            setActiveNoteId(null)
+        }
+    }, [isSelectedNote])
 
 
     function onClickPalette(note) {
-        setNotePalette(note)
+        setNotePalette(prev => (prev && prev.id === note.id ? null : note))
+        setActiveNoteId(prev => (prev === note.id ? null : note.id))
     }
 
-  
+
 
     if (!notes || !notes.length) return <h2>No notes to show...</h2>
 

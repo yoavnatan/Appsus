@@ -1,7 +1,7 @@
 const { useState, useEffect, useRef } = React
 
 
-export function NoteBackground({  notePalette, isShowPreviewPalette, saveNote, setSelectedColor, setBackground, onClose }) {
+export function NoteBackground({ notePalette, isShowPreviewPalette, saveNote, setSelectedColor, setBackground, onClose }) {
 
     const colors = ['chalk', 'clay', 'rash', 'dusk', 'storm', 'default']
 
@@ -29,7 +29,10 @@ export function NoteBackground({  notePalette, isShowPreviewPalette, saveNote, s
             <div className="overlay-pallete" onClick={() => {
                 onClose()
             }}></div>
-            <div className="color-palette">
+            <div
+                className="color-palette"
+                onClick={(ev) => ev.stopPropagation()}
+            >
                 {colors.map(color => (
                     <div
                         key={color}
@@ -39,6 +42,7 @@ export function NoteBackground({  notePalette, isShowPreviewPalette, saveNote, s
                     ></div>
                 ))}
             </div>
+
         </React.Fragment>
     )
 }

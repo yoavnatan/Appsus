@@ -4,13 +4,13 @@ import { NoteBackground } from "./NoteBackground.jsx"
 const { useState, useEffect, useRef } = React
 
 
-export function NotePreview({ isSelectedNote,notePalette, onClickPalette, saveNote, selectedNote, setBackground, onSetIsSelectedNote, note, onRemoveNote, onSelectNote, }) {
+export function NotePreview({ isSelectedNote, notePalette, onClickPalette, saveNote, selectedNote, setBackground, onSetIsSelectedNote, note, onRemoveNote, onSelectNote, }) {
 
     const [isShowPreviewPalette, setIsShowPreviewPalette] = useState(false)
     const [selectedColorPreview, setSelectedColorPreview] = useState(note.style.backgroundColor)
 
     useEffect(() => {
-        setIsShowPreviewPalette(false)
+
         setSelectedColorPreview(null)
 
     }, [])
@@ -21,7 +21,7 @@ export function NotePreview({ isSelectedNote,notePalette, onClickPalette, saveNo
         setIsShowPreviewPalette(false)
     }
 
-   
+    const isOpen = notePalette && notePalette.id === note.id
     return (
         <React.Fragment>
             <div className={`note-preview ${selectedColorPreview ? selectedColorPreview : note.style.backgroundColor}            
@@ -49,7 +49,7 @@ export function NotePreview({ isSelectedNote,notePalette, onClickPalette, saveNo
                     }}>
                         palette
                     </span>
-                    {isShowPreviewPalette &&  notePalette.id  === note.id && <NoteBackground onSetIsSelectedNote={onSetIsSelectedNote} notePalette={notePalette} isShowPreviewPalette={isShowPreviewPalette} saveNote={saveNote} selectedNote={selectedNote} setSelectedColorPreview={setSelectedColorPreview} setBackground={setBackground} onClose={() => setIsShowPreviewPalette(false)} setSelectedColor={setSelectedColorPreview} />}
+                    {isOpen && <NoteBackground onSetIsSelectedNote={onSetIsSelectedNote} notePalette={notePalette} isShowPreviewPalette={isShowPreviewPalette} saveNote={saveNote} selectedNote={selectedNote} setSelectedColorPreview={setSelectedColorPreview} setBackground={setBackground} onClose={() => setIsShowPreviewPalette(false)} setSelectedColor={setSelectedColorPreview} />}
                 </section>
             </div>
         </React.Fragment>
