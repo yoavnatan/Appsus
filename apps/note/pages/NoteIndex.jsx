@@ -20,7 +20,7 @@ export function NoteIndex() {
     const [background, setBackground] = useState(null)
     const [isSelectedNote, setIsSelectedNote] = useState(false)
     const [img, setImg] = useState(null)
-    const [selectedNotePalette, setSelectedNotePalette] = useState(null)
+    const [isPinned, SetIsPinned] = useState(null)
 
 
 
@@ -66,6 +66,16 @@ export function NoteIndex() {
                 console.log('Cannot save note!:', err)
                 showErrorMsg('Cannot save note!')
             })
+    }
+
+    function onSetIsPinned(pinnedNote) {
+        // const updatedNote = {
+        //     ...pinnedNote,
+        //     isPinned: !pinnedNote.isPinned
+        // }
+        // console.log(updatedNote)
+        // saveNote(updatedNote)
+        // setIsChangeNote(true)
     }
 
     function onSetImg(newImg) {
@@ -130,10 +140,10 @@ export function NoteIndex() {
 
             </section>
             <section className="notes-container">
-                <NoteList isSelectedNote={isSelectedNote} setBackground={setBackground} selectedNote={selectedNote} onSetIsSelectedNote={onSetIsSelectedNote}  onChangeBackgroundColor={onChangeBackgroundColor} notes={notes} onRemoveNote={onRemoveNote} saveNote={saveNote} onSelectNote={onSelectNote} />
+                <NoteList isSelectedNote={isSelectedNote} setBackground={setBackground} selectedNote={selectedNote} onSetIsSelectedNote={onSetIsSelectedNote} onChangeBackgroundColor={onChangeBackgroundColor} notes={notes} onRemoveNote={onRemoveNote} saveNote={saveNote} onSelectNote={onSelectNote} />
             </section>
         </section>
-        {selectedNote && <NoteModal  selectedNote={selectedNote} setBackground={setBackground} isSelectedNote={isSelectedNote} note={selectedNote} onRemoveNote={onRemoveNote} saveNote={saveNote} onCloseModal={onCloseModal} onClose={() => setSelectedNote(null)} />}
+        {selectedNote && <NoteModal onSetIsPinned={onSetIsPinned} selectedNote={selectedNote} setBackground={setBackground} isSelectedNote={isSelectedNote} note={selectedNote} onRemoveNote={onRemoveNote} saveNote={saveNote} onCloseModal={onCloseModal} onClose={() => setSelectedNote(null)} />}
     </React.Fragment>
 
 }

@@ -1,7 +1,7 @@
 const { useState, useEffect, useRef } = React
 
 
-export function NoteBackground({ notePalette, isShowPreviewPalette, saveNote, setSelectedColor, setBackground, onClose }) {
+export function NoteBackground({  notePalette, isShowPreviewPalette, saveNote, setSelectedColor, setBackground, onClose }) {
 
     const colors = ['chalk', 'clay', 'rash', 'dusk', 'storm', 'default']
 

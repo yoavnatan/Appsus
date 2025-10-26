@@ -3,7 +3,7 @@ import { NoteBackground } from "./NoteBackground.jsx"
 
 const { useState, useEffect } = React
 
-export function NoteModal({ setBackground, isSelectedNote, background, note, onRemoveNote, selectedNote, onClose, onCloseModal, onChangeBackgroundColor }) {
+export function NoteModal({ setBackground, onSetIsPinned, note, onRemoveNote, selectedNote, onClose, onCloseModal }) {
 
   const [selectedColor, setSelectedColor] = useState(selectedNote.style.backgroundColor)
   const [isShowPalette, setIsShowPalette] = useState(false)
@@ -15,6 +15,7 @@ export function NoteModal({ setBackground, isSelectedNote, background, note, onR
 
 
   useEffect(() => {
+
   }, [selectedColor])
 
   function handleChange({ target }) {
@@ -48,6 +49,10 @@ export function NoteModal({ setBackground, isSelectedNote, background, note, onR
        note-show-modal `}
         onClick={(ev) => ev.stopPropagation()}
       >
+        <span className="material-symbols-outlined pinned-btn"
+          onClick={onSetIsPinned(noteToShow)}>
+          keep
+        </span>
         <form className="form-show-modal"
           onSubmit={(ev) => {
             ev.preventDefault()
@@ -104,7 +109,7 @@ export function NoteModal({ setBackground, isSelectedNote, background, note, onR
             ev.preventDefault()
             onCloseModal(noteToShow)
           }}>
-         
+
         </form>
 
         <section className="note-actions-modal">

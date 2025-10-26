@@ -6,7 +6,7 @@ const { useState, useEffect, useRef } = React
 export function AddNote({ onSetImg, img, isAddNote, onFocus, onSetIsAddNote, saveNote }) {
 
     const [noteToAdd, setNoteToAdd] = useState(noteService.getEmptyNote())
-    
+
 
     function handleChange({ target }) {
         const field = target.name
@@ -92,43 +92,45 @@ export function AddNote({ onSetImg, img, isAddNote, onFocus, onSetIsAddNote, sav
     return (
         <section className="create-note-modal" >
             <h1>note</h1>
-            <form onSubmit={onSaveNote} className="note-form">
-                {img && <img src={img} alt="note" className="note-image" />}
-                {!img && <input
+            <div className="modal-action-container">
+                <form onSubmit={onSaveNote} className="note-form">
+                    {img && <img src={img} alt="note" className="note-image" />}
+                    {!img && <input
 
-                    onChange={handleChange}
-                    type="text"
-                    name="title"
-                    placeholder="Title"
-                    className="note-title"
-                    id="note-title"
-                />}
+                        onChange={handleChange}
+                        type="text"
+                        name="title"
+                        placeholder="Title"
+                        className="note-title"
+                        id="note-title"
+                    />}
 
-                {!img && <textarea
+                    {!img && <textarea
 
-                    onChange={handleChange}
-                    name="txt"
-                    placeholder="Add your text..."
-                    className="note-body"
-                    id="note-txt"
-                />}
+                        onChange={handleChange}
+                        name="txt"
+                        placeholder="Add your text..."
+                        className="note-body"
+                        id="note-txt"
+                    />}
 
-                <button className="save-btn">Save</button>
-            </form>
-            <div className="note-actions">
-                <label htmlFor="note-image" className="upload-img">
-                    <span className="material-symbols-outlined">
-                        photo_camera_back
-                    </span>
-                </label>
-                <input
-                    className="none"
-                    name="img"
-                    id="note-image"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleChange}
-                />
+                    <button className="save-btn">Save</button>
+                </form>
+                <div className="note-actions">
+                    <label htmlFor="note-image" className="upload-img">
+                        <span className="material-symbols-outlined">
+                            photo_camera_back
+                        </span>
+                    </label>
+                    <input
+                        className="none img-btn"
+                        name="img"
+                        id="note-image"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleChange}
+                    />
+                </div>
             </div>
         </section>
 

@@ -15,10 +15,7 @@ export function NoteList({ isSelectedNote,setBackground, selectedNote, onSetIsSe
         setNotePalette(note)
     }
 
-    function onSetRef(newNote) {
-        openNotesPaletteArrRef.current.push(newNote)
-        console.log(openNotesPaletteArrRef.current)
-    }
+  
 
     if (!notes || !notes.length) return <h2>No notes to show...</h2>
 

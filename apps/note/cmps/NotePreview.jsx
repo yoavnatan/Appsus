@@ -9,30 +9,18 @@ export function NotePreview({ isSelectedNote,notePalette, onClickPalette, saveNo
     const [isShowPreviewPalette, setIsShowPreviewPalette] = useState(false)
     const [selectedColorPreview, setSelectedColorPreview] = useState(note.style.backgroundColor)
 
-
-
-
-
-
     useEffect(() => {
         setIsShowPreviewPalette(false)
         setSelectedColorPreview(null)
 
     }, [])
 
-
-
     function onClickPreview() {
-        setIsShowPreviewPalette(false)
         onSelectNote(note)
         onSetIsSelectedNote(true)
+        setIsShowPreviewPalette(false)
     }
 
-
-
-    function onSetIsShowPalette() {
-        setIsShowPreviewPalette(!isShowPreviewPalette)
-    }
    
     return (
         <React.Fragment>
@@ -61,7 +49,7 @@ export function NotePreview({ isSelectedNote,notePalette, onClickPalette, saveNo
                     }}>
                         palette
                     </span>
-                    {isShowPreviewPalette  && notePalette.id  === note.id && <NoteBackground onSetIsShowPalette={onSetIsShowPalette} notePalette={notePalette} isShowPreviewPalette={isShowPreviewPalette} saveNote={saveNote} selectedNote={selectedNote} setSelectedColorPreview={setSelectedColorPreview} setBackground={setBackground} onClose={() => setIsShowPreviewPalette(false)} setSelectedColor={setSelectedColorPreview} />}
+                    {isShowPreviewPalette &&  notePalette.id  === note.id && <NoteBackground onSetIsSelectedNote={onSetIsSelectedNote} notePalette={notePalette} isShowPreviewPalette={isShowPreviewPalette} saveNote={saveNote} selectedNote={selectedNote} setSelectedColorPreview={setSelectedColorPreview} setBackground={setBackground} onClose={() => setIsShowPreviewPalette(false)} setSelectedColor={setSelectedColorPreview} />}
                 </section>
             </div>
         </React.Fragment>
